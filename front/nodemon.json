@@ -1,0 +1,8 @@
+{
+	"whatch": [
+		"next",
+		"nodemon.json"
+	],
+	"exec": "node server.js",
+	"ext": "js json jsx"
+}
