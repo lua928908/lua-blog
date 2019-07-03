@@ -1,56 +1,83 @@
 import React from 'react';
 import Link from 'next/link';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col } from 'antd';
+import styled from 'styled-components';
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
+
+// style
+const RootWrap = styled.div`
+	& Menu.Item {
+		font-size: 18px;
+		cursor: pointer;
+	}
+`;
+const SideBar = styled(Sider)`
+	height: calc(100vh - (64px + 69px));
+`;
 
 const AppLayout = ({children}) => {
+
+	//method
+
 	return (
 		<>
-		<Layout>
-			<Header className="header">
-				<div className="logo" />
-				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px' }} >
-					<Menu.Item key="1">nav 1</Menu.Item>
-					<Menu.Item key="2">nav 2</Menu.Item>
-					<Menu.Item key="3">nav 3</Menu.Item>
-				</Menu>
-			</Header>
+		<RootWrap>
 			<Layout>
-				<Sider width={200} style={{ background: '#fff' }}>
-					<Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
-						<SubMenu key="sub1" title={ <span><Icon type="user" />subnav 1</span> }>
-							<Menu.Item key="1">option1</Menu.Item>
-							<Menu.Item key="2">option2</Menu.Item>
-							<Menu.Item key="3">option3</Menu.Item>
-							<Menu.Item key="4">option4</Menu.Item>
-						</SubMenu>
-						<SubMenu key="sub2" title={ <span><Icon type="laptop"/>subnav 2</span> }>
-							<Menu.Item key="5">option5</Menu.Item>
-							<Menu.Item key="6">option6</Menu.Item>
-							<Menu.Item key="7">option7</Menu.Item>
-							<Menu.Item key="8">option8</Menu.Item>
-						</SubMenu>
-						<SubMenu key="sub3" title={ <span><Icon type="notification" />subnav 3</span> }>
-							<Menu.Item key="9">option9</Menu.Item>
-							<Menu.Item key="10">option10</Menu.Item>
-							<Menu.Item key="11">option11</Menu.Item>
-							<Menu.Item key="12">option12</Menu.Item>
-						</SubMenu>
-					</Menu>
-				</Sider>
-				<Layout style={{ padding: '0 24px 24px' }}>
-					<Breadcrumb style={{ margin: '16px 0' }}>
-						<Breadcrumb.Item>Home</Breadcrumb.Item>
-						<Breadcrumb.Item>List</Breadcrumb.Item>
-						<Breadcrumb.Item>App</Breadcrumb.Item>
-					</Breadcrumb>
-					<Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280, }}>
-						{children}
-					</Content>
+				<Header className="header">
+					<Row gutter={8}>
+						<Col xs={14} md={12} xl={12}>
+							<div className="logo" />
+							<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px' }} >
+								<Menu.Item key="home"><Link href="/"><a>로고</a></Link></Menu.Item>
+								<Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
+								<Menu.Item key="nav3"><Link href="/"><a>nav 3</a></Link></Menu.Item>
+							</Menu>
+						</Col>
+						<Col xs={10} md={12} xl={12}>
+							<div style={{ "float":"right" }}>
+								<Input.Search enterButton style={{ verticalAlign: 'middle' }} />
+							</div>
+						</Col>
+					</Row>
+				</Header>
+				<Layout>
+					<SideBar>
+						<Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
+							<SubMenu key="sub1" title={ <span><Icon type="user" />Lua</span> }>
+								<Menu.Item key="introduce"><Link href="/introduce"><a>소개</a></Link></Menu.Item>
+								<Menu.Item key="portfolio"><Link href="/portfolio"><a>Portfolio</a></Link></Menu.Item>
+								<Menu.Item key="archive"><Link href="/archive"><a>Archive</a></Link></Menu.Item>
+								<Menu.Item key="support"><Link href="/support"><a>Support</a></Link></Menu.Item>
+							</SubMenu>
+							<SubMenu key="sub2" title={ <span><Icon type="laptop"/>Development</span> }>
+								<Menu.Item key="javascript"><Link href="/javascript"><a>Javascript</a></Link></Menu.Item>
+								<Menu.Item key="c++"><Link href="/c++"><a>C++</a></Link></Menu.Item>
+								<Menu.Item key="python"><Link href="/python"><a>Python</a></Link></Menu.Item>
+								<Menu.Item key="etc"><Link href="/etc"><a>ETC</a></Link></Menu.Item>
+							</SubMenu>
+							<SubMenu key="sub3" title={ <span><Icon type="notification" />Inspiration</span> }>
+								<Menu.Item key="inspiration"><Link href="/inspiration"><a>Inspiration</a></Link></Menu.Item>
+								<Menu.Item key="book"><Link href="/book"><a>Book</a></Link></Menu.Item>
+							</SubMenu>
+						</Menu>
+					</SideBar>
+					<Layout style={{ padding: '0 24px 24px' }}>
+						<Breadcrumb style={{ margin: '16px 0' }}>
+							<Breadcrumb.Item>Home</Breadcrumb.Item>
+							<Breadcrumb.Item>List</Breadcrumb.Item>
+							<Breadcrumb.Item>App</Breadcrumb.Item>
+						</Breadcrumb>
+						<Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 250 }}>
+							{children}
+						</Content>
+					</Layout>
 				</Layout>
+				<Footer>
+					Copyright © 2019
+				</Footer>
 			</Layout>
-		</Layout>
+		</RootWrap>
 		</>
 	);
 };
