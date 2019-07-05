@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import moment from 'moment';
 import styled from 'styled-components';
 import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip } from 'antd';
 const { SubMenu } = Menu;
@@ -20,17 +19,6 @@ const SideBar = styled(Sider)`
 
 
 const AppLayout = ({children}) => {
-	let time = useRef( '' );
-
-	useEffect(() => {
-		let updateTime = setInterval(() => {
-			time.current = moment().format('YYYY.MM.DD HH:MM');
-			console.log('inteval');
-		}, 2000);
-		return () => {
-			clearInterval(updateTime);
-		}
-	}, [time && time.current])
 
 	//method
 
@@ -46,7 +34,6 @@ const AppLayout = ({children}) => {
 								<Menu.Item key="home"><Link href="/"><a>로고</a></Link></Menu.Item>
 								<Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
 								<Menu.Item key="nav3"><Link href="/"><a>nav 3</a></Link></Menu.Item>
-								<Menu.Item key="time"><li><div>{time.current}</div></li></Menu.Item>
 							</Menu>
 						</Col>
 						<Col xs={10} md={12} xl={12}>
