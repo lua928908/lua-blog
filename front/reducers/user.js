@@ -7,6 +7,10 @@ export const initialState = {
 	test: 'null',
 };
 
+export const dummyPost = [
+	{  }
+];
+
 export const TEST_SAGA_REQUEST = 'TEST_SAGA_REQUEST';
 export const TEST_SAGA_SUCCESS = 'TEST_SAGA_SUCCESS';
 export const TEST_SAGA_FAILURE = 'TEST_SAGA_FAILURE';

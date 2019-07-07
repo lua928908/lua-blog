@@ -1,0 +1,23 @@
+{
+  "name": "lua-blog-backend",
+  "version": "1.0.0",
+  "description": "lua API sever",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "blog"
+  ],
+  "author": "lua928908@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.19.1",
+    "sequelize": "^5.9.4"
+  }
+}

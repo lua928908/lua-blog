@@ -1,8 +1,8 @@
 import React from 'react';
 import {List, Avatar, Icon} from 'antd';
 
-const listData = [];
 // 가짜 데이터 넣기
+/*
 for (let i = 0; i < 23; i++) {
 	if(i === 0){
 		listData.push({
@@ -28,6 +28,7 @@ for (let i = 0; i < 23; i++) {
 		});
 	}
 }
+*/
 
 const IconText = ({ type, text }) => (
 	<span>
@@ -36,7 +37,7 @@ const IconText = ({ type, text }) => (
 	</span>
   );
 
-const PostList = () => {
+const PostList = ({ listData }) => {
 	return (
 		<>
 			<List

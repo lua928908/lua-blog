@@ -1,11 +1,9 @@
 import React from 'react';
-import PostList from '../components/PostList';
 
 const Archive = () => {
 	return (
 		<>
-			<PostList>
-			</PostList>
+			D3, 여행지
 		</>
 	);
 };

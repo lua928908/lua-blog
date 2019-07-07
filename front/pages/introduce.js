@@ -52,7 +52,7 @@ const Introduce = () => {
 	};
 	const dongik = () => {
 		message.info('테스트 성공입니다.');
-	}
+	};
 	
 	return (
 		<>
