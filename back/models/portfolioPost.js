@@ -1,5 +1,5 @@
-module.export = (sequelize, DataTypes) => {
-	const PortfolioPost = sequelize.define('PortfolioPost', {
+module.exports = (sequelize, DataTypes) => {
+	const PortfolioPost = sequelize.define('portfolioPost', {
 		href: {
 			type: DataTypes.STRING(200),
 			allowNull: true,
@@ -25,7 +25,7 @@ module.export = (sequelize, DataTypes) => {
 			allowNull: true,
 		},
 	}, {
-		charset: 'utf-8',
+		charset: 'utf8',
 		collate: 'utf8_general_ci',
 		timestamps: true,
 		paranoid: true,
