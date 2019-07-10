@@ -2,7 +2,8 @@ import { all, fork, takeLatest, takeEvery, put, throttle, call } from 'redux-sag
 import axios from 'axios';
 import {
 	TEST_SAGA_REQUEST, TEST_SAGA_SUCCESS, TEST_SAGA_FAILURE,
-	LOAD_PORTFOLIO_REQUEST, LOAD_PORTFOLIO_SUCCESS, LOAD_PORTFOLIO_FAILURE
+	LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
+	ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
 } from '../reducers/post';
 
 // test saga
@@ -10,8 +11,8 @@ function testAPI(){
 	return 9289;
 }
 function* testCallback(){
-	const result = call(testAPI);
 	try{
+		const result = call(testAPI);
 		yield put({
 			type: TEST_SAGA_SUCCESS,
 			data: result,
@@ -23,39 +24,64 @@ function* testCallback(){
 			error: e,
 		});
 	}
-	yield call();
 }
 function* watchTestSaga(){
 	yield takeEvery(TEST_SAGA_REQUEST, testCallback);
 }
 
-// 포트폴리오 게시물 가져오기
-function loadPortfolioAPI(data){
-	return 8246;
+
+// 게시물 쓰기
+function addPostAPI(data){
+	return data;
 }
-function* loadPortfolio(action){
-	const result = yield call(loadPortfolioAPI, action.data);
+function* addPost(action){
 	try{
+		const result = yield call(addPostAPI, action.data);
+		console.log(result);
 		yield put({
-			type: LOAD_PORTFOLIO_SUCCESS,
+			type: ADD_POST_SUCCESS,
 			data: result,
 		});
 	}catch(e){
 		console.error(e);
 		yield put({
-			type: LOAD_PORTFOLIO_FAILURE,
+			type: ADD_POST_FAILURE,
 			error: e,
 		});
 	}
-	yield call();
 }
-function* watchLoadPortfolioPost(){
-	yield takeLatest(LOAD_PORTFOLIO_REQUEST, loadPortfolio);
+function* watchAddPost(){
+	yield takeLatest(ADD_POST_REQUEST, addPost);
 }
+
+
+// 게시물 가져오기
+function loadPostAPI(data){
+	return 8246;
+};
+function* loadPost(action){
+	try{
+		const result = yield call(loadPostAPI, action.data);
+		yield put({
+			type: LOAD_POST_SUCCESS,
+			data: result,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: LOAD_POST_FAILURE,
+			error: e,
+		});
+	}
+};
+function* watchLoadPost(){
+	yield takeLatest(LOAD_POST_REQUEST, loadPost);
+};
 
 export default function* postSaga() {
   yield all([
     fork(watchTestSaga),
-    fork(watchLoadPortfolioPost),
+    fork(watchLoadPost),
+    fork(watchAddPost),
   ]);
 }

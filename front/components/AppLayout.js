@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip } from 'antd';
+import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -32,8 +33,14 @@ const SideBar = styled(Sider)`
 
 
 const AppLayout = ({children}) => {
+	const urlPath = useRef('');
 
 	//method
+
+	useEffect(() => {
+		urlPath.current = Router.pathname;
+		console.log(urlPath.current);
+	}, [urlPath.current]);
 
 	return (
 		<>
@@ -82,7 +89,7 @@ const AppLayout = ({children}) => {
 						</SideBar>
 						<Layout style={{ padding: '0 24px 24px' }}>
 							<Breadcrumb style={{ margin: '16px 0' }}>
-								<Breadcrumb.Item>Home</Breadcrumb.Item>
+								<Breadcrumb.Item>{urlPath.current}</Breadcrumb.Item>
 								<Breadcrumb.Item>List</Breadcrumb.Item>
 								<Breadcrumb.Item>App</Breadcrumb.Item>
 							</Breadcrumb>

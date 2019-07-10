@@ -59,9 +59,13 @@ export const TEST_SAGA_REQUEST = 'TEST_SAGA_REQUEST';
 export const TEST_SAGA_SUCCESS = 'TEST_SAGA_SUCCESS';
 export const TEST_SAGA_FAILURE = 'TEST_SAGA_FAILURE';
 
-export const LOAD_PORTFOLIO_REQUEST = 'LOAD_PORTFOLIO_REQUEST';
-export const LOAD_PORTFOLIO_SUCCESS = 'LOAD_PORTFOLIO_SUCCESS';
-export const LOAD_PORTFOLIO_FAILURE = 'LOAD_PORTFOLIO_FAILURE';
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
 
 export default (state = initialState, action) => {
@@ -78,13 +82,22 @@ export default (state = initialState, action) => {
 			case TEST_SAGA_FAILURE: {
 				break;
 			}
-			case LOAD_PORTFOLIO_REQUEST: {
+			case ADD_POST_REQUEST: {
 				break;
 			}
-			case LOAD_PORTFOLIO_SUCCESS: {
+			case ADD_POST_SUCCESS: {
+				break;
+			}
+			case ADD_POST_FAILURE: {
+				break;
+			}
+			case LOAD_POST_REQUEST: {
+				break;
+			}
+			case LOAD_POST_SUCCESS: {
 				draft.portfolioPost = dummyData;
 			}
-			case LOAD_PORTFOLIO_FAILURE: {
+			case LOAD_POST_FAILURE: {
 				draft.loadPostErrorReason = action.error
 			}
 			default: {

@@ -1,43 +1,35 @@
-import React from 'react';
-import {List, Avatar, Icon} from 'antd';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { List, Avatar, Icon, Button, Modal } from 'antd';
+import styled from 'styled-components';
 
-// 가짜 데이터 넣기
-/*
-for (let i = 0; i < 23; i++) {
-	if(i === 0){
-		listData.push({
-			href: 'http://ant.design',
-			title: `ant design part ${i}`,
-			avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-			description:
-			'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-			content:
-			'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-			imagePath:
-			'http://cdnweb01.wikitree.co.kr/webdata/editor/201807/18/img_20180718173651_ee0a6b63.jpg',
-		});
-	}else {
-		listData.push({
-			href: 'http://ant.design',
-			title: `ant design part ${i}`,
-			avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-			description:
-			'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-			content:
-			'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-		});
-	}
-}
-*/
+import EditForm from '../components/EditForm';
+
+// style
 
 const IconText = ({ type, text }) => (
 	<span>
-	  <Icon type={type} style={{ marginRight: 8 }} />
-	  {text}
+		<Icon type={type} style={{ marginRight: 8 }} />
+		{text}
 	</span>
-  );
+);
 
 const PostList = ({ listData }) => {
+	const isUserAdmin = useSelector(state => state.user.isUserAdmin);
+	const [editModalState, setEditModalState] = useState(false);
+
+	const showEditModal = () => {
+		setEditModalState(true);
+	};
+	const handleOk = e => {
+		setEditModalState(false);
+	};
+	
+	const handleCancel = e => {
+		setEditModalState(false);
+	};
+
 	return (
 		<>
 			<List
@@ -65,7 +57,7 @@ const PostList = ({ listData }) => {
 					]}
 					extra={
 						item && item.imagePath ?
-							<img width={272} alt="이미지있어" src={item.imagePath} />
+							<img width={272} alt="post Image" src={item.imagePath} />
 						:
 							<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
 					}
@@ -79,6 +71,18 @@ const PostList = ({ listData }) => {
 				</List.Item>
 				)}
 			/>
+			{
+				isUserAdmin && <Button type="primary" onClick={showEditModal}>글쓰기</Button>
+			}
+
+			<Modal
+				title="Basic Modal"
+				visible={editModalState}
+				onOk={handleOk}
+				onCancel={handleCancel}
+			>
+				<EditForm></EditForm>
+			</Modal>
 		</>
 	);
 };

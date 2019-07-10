@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import PostList from '../components/PostList';
 import { useSelector, useDispatch } from 'react-redux';
-import post from '../reducers/post';
-import { LOAD_PORTFOLIO_REQUEST } from '../reducers/post';
+import { LOAD_POST_REQUEST } from '../reducers/post';
 
 const Portfolio = () => {
 	const dispatch = useDispatch();
@@ -11,7 +10,7 @@ const Portfolio = () => {
 
 	useEffect(() => {
 		dispatch({
-			type: LOAD_PORTFOLIO_REQUEST,
+			type: LOAD_POST_REQUEST,
 		})
 	}, [listData]);
 

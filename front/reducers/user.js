@@ -6,11 +6,8 @@ export const initialState = {
 	loginErrorReason: '', // 로그인 에러메세지
 	test: 'null',
 	registerDone: false, // 회원가입 성공 여부
+	isUserAdmin: true, // 로그인된 유저의 관리자 여부
 };
-
-export const dummyPost = [
-	{  }
-];
 
 export const TEST_SAGA_REQUEST = 'TEST_SAGA_REQUEST';
 export const TEST_SAGA_SUCCESS = 'TEST_SAGA_SUCCESS';
