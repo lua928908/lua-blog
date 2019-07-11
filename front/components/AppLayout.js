@@ -54,7 +54,7 @@ const AppLayout = ({children}) => {
 								<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px' }} >
 									<Menu.Item key="home"><Link href="/"><a>로고</a></Link></Menu.Item>
 									<Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
-									<Menu.Item key="nav3"><Link href="/register"><a>회원가입</a></Link></Menu.Item>
+									<Menu.Item key="nav3"><Link href="/login"><a>Login</a></Link></Menu.Item>
 								</Menu>
 							</Col>
 							<Col xs={10} md={12} xl={12}>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, } from 'antd';
 import { SIGNUP_REQUEST } from '../reducers/user';
 import { message } from 'antd';
+import Router from 'next/router';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -91,7 +92,7 @@ class RegistrationForm extends React.Component {
 		if (!value) {
 			autoCompleteResult = [];
 		} else {
-			autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+			autoCompleteResult = ['.com', '.org', '.net', '.io', '.kr'].map(domain => `${value}${domain}`);
 		}
 		this.setState({ autoCompleteResult });
 	};
@@ -234,7 +235,7 @@ class RegistrationForm extends React.Component {
 		);
 	}
 }
-	
+
 const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
 
 const Register = () => {
@@ -244,6 +245,9 @@ const Register = () => {
 	useEffect(() => {
 		if(registerDone){
 			message.success('회원가입이 완료되었습니다.', 4);
+			setTimeout(() =>{
+				Router.push('/login');
+			}, 4000)
 		}
 	}, [registerDone]);
 

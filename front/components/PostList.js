@@ -81,7 +81,7 @@ const PostList = ({ listData }) => {
 				onOk={handleOk}
 				onCancel={handleCancel}
 			>
-				<EditForm></EditForm>
+				<EditForm category="portfolio"></EditForm>
 			</Modal>
 		</>
 	);

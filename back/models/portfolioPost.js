@@ -1,12 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
 	const PortfolioPost = sequelize.define('portfolioPost', {
+		auth: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
+		},
 		href: {
 			type: DataTypes.STRING(200),
 			allowNull: true,
 		},
 		title: {
 			type: DataTypes.STRING(40),
-			allowNull: true,
+			allowNull: false,
 		},
 		avatar: {
 			type: DataTypes.STRING(40),
@@ -14,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		description: {
 			type: DataTypes.STRING(100),
-			allowNull: true,
+			allowNull: false,
 		},
 		content: {
 			type: DataTypes.TEXT(),
-			allowNull: true,
+			allowNull: false,
 		},
 		imagePath: {
 			type: DataTypes.STRING(200),
