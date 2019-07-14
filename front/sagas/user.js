@@ -1,33 +1,35 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-	TEST_SAGA_REQUEST, TEST_SAGA_SUCCESS, TEST_SAGA_FAILURE,
+	LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
 	SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
 } from '../reducers/user';
 
 
-// test saga
-function testAPI(){
-	return 9289;
+// 로그인
+function loginAPI(loginData){
+	return axios.post('/user/login', loginData, {
+		withCredentials: true,
+	});
 }
-function* testCallback(){
-	const result = call(testAPI);
+function* login(action){
+	const result = yield call(loginAPI, action.data);
 	try{
 		yield put({
-			type: TEST_SAGA_SUCCESS,
-			data: result,
+			type: LOG_IN_SUCCESS,
+			data: result.data,
 		});
 	}catch(e){
 		console.error(e);
 		yield put({
-			type: TEST_SAGA_FAILURE,
+			type: LOG_IN_FAILURE,
 			error: e,
 		});
 	}
 	yield call();
 }
-function* watchTestSaga(){
-	yield takeEvery(TEST_SAGA_REQUEST, testCallback);
+function* watchLogin(){
+	yield takeEvery(LOG_IN_REQUEST, login);
 }
 
 // 회원가입
@@ -55,7 +57,7 @@ function* watchSignup(){
 
 export default function* postSaga() {
   yield all([
-    fork(watchTestSaga),
+    fork(watchLogin),
     fork(watchSignup),
   ]);
 }

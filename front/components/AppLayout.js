@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip } from 'antd';
@@ -34,12 +35,12 @@ const SideBar = styled(Sider)`
 
 const AppLayout = ({children}) => {
 	const urlPath = useRef('');
+	const userInfo = useSelector(state => state.user.userInfo);
 
 	//method
 
 	useEffect(() => {
 		urlPath.current = Router.pathname;
-		console.log(urlPath.current);
 	}, [urlPath.current]);
 
 	return (
@@ -54,7 +55,12 @@ const AppLayout = ({children}) => {
 								<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px' }} >
 									<Menu.Item key="home"><Link href="/"><a>로고</a></Link></Menu.Item>
 									<Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
-									<Menu.Item key="nav3"><Link href="/login"><a>Login</a></Link></Menu.Item>
+									{
+										userInfo ?
+										<Menu.Item key="logout"><Link href="/logout"><a>Logout</a></Link></Menu.Item>
+										:
+										<Menu.Item key="login"><Link href="/login"><a>Login</a></Link></Menu.Item>
+									}
 								</Menu>
 							</Col>
 							<Col xs={10} md={12} xl={12}>

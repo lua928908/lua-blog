@@ -73,7 +73,7 @@ class RegistrationForm extends React.Component {
 	compareToFirstPassword = (rule, value, callback) => {
 		const { form } = this.props;
 		if (value && value !== form.getFieldValue('password')) {
-			callback('Two passwords that you enter is inconsistent!');
+			callback('패스워드가 일치하지 않습니다.');
 		} else {
 			callback();
 		}
@@ -144,11 +144,11 @@ class RegistrationForm extends React.Component {
 					rules: [
 						{
 							type: 'email',
-							message: 'The input is not valid E-mail!',
+							message: '이메일 형식이 부적절합니다.',
 						},
 						{
 							required: true,
-							message: 'Please input your E-mail!',
+							message: '이메일을 입력해주세요.',
 						},
 					],
 				})(<Input />)}
@@ -158,7 +158,7 @@ class RegistrationForm extends React.Component {
 				rules: [
 					{
 						required: true,
-						message: 'Please input your password!',
+						message: '패스워드를 입력해주세요',
 					},
 					{
 						validator: this.validateToNextPassword,

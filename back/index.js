@@ -5,14 +5,17 @@ const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
+const passport = require('passport');
 
 const db = require('./models');
 const portfolioRouter = require('./routes/portfolio');
 const userRouter = require('./routes/user');
 const prod = process.env.NODE_ENV === 'production';
+const passportConfig = require('./passport/index');
 
 dotenv.config();
 db.sequelize.sync();
+passportConfig(passport);
 
 if (prod) {
 	app.use(hpp());
@@ -39,11 +42,13 @@ app.use(expressSession({
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: prod, // https를 쓸 때 true
+    secure: false, // https를 쓸 때 true
     domain: prod && '.where-code.com',
   },
-  name: 'rnbck',
+  name: 'exapmle_string_luacddiefkm',
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api/user', userRouter)
 app.use('/api/portfolio', portfolioRouter)
 app.get('/', (req, res) => {

@@ -1,7 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import styled from 'styled-components';
+
+import { LOG_IN_REQUEST } from '../reducers/user';
+
 
 // style
 const Wrap = styled.div`
@@ -24,6 +28,10 @@ class NormalLoginForm extends React.Component {
 			if (!err) {
 				console.log('Received values of form: ', values);
 			}
+			this.props.dispatch({
+				type: LOG_IN_REQUEST,
+				data: values,
+			});
 		});
 	};
 
@@ -34,18 +42,24 @@ class NormalLoginForm extends React.Component {
 			<Wrap>
 				<Form onSubmit={this.handleSubmit} className="login-form">
 				<Form.Item>
-					{getFieldDecorator('username', {
-						rules: [{ required: true, message: 'Please input your username!' }],
+					{getFieldDecorator('email', {
+						rules: [{
+							type: 'email',
+							message: '이메일 형식이 부적절합니다.',
+						},{
+							required: true,
+							message: '이메일을 입력해주세요.',
+						}],
 					})(
 					<Input
 						prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-						placeholder="Username"
+						placeholder="E-mail"
 					/>,
 					)}
 				</Form.Item>
 				<Form.Item>
 					{getFieldDecorator('password', {
-						rules: [{ required: true, message: 'Please input your Password!' }],
+						rules: [{ required: true, message: '패스워드를 입력해주세요' }],
 					})(
 					<Input
 						prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -65,7 +79,7 @@ class NormalLoginForm extends React.Component {
 					<Button type="primary" htmlType="submit" className="login-form-button">
 						Log in
 					</Button>
-					Or <Link href={{ pathname: 'register' }}><a>회원가입</a></Link>
+					<Link href={{ pathname: 'register' }}><a>회원가입</a></Link>
 				</Form.Item>
 				</Form>
 			</Wrap>
@@ -77,9 +91,11 @@ class NormalLoginForm extends React.Component {
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 
 const Login = () => {
+	const dispatch = useDispatch();
+
 	return (
 		<>
-			<WrappedNormalLoginForm>
+			<WrappedNormalLoginForm dispatch={dispatch}>
 
 			</WrappedNormalLoginForm>
 		</>

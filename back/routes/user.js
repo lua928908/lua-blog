@@ -2,6 +2,41 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const { isLoggedIn, isNotLoggedIn } = require('../middleware/index');
+
+// 로그인
+router.post('/login', (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
+		if(err){
+			console.error(err);
+			next(err);
+		}
+		if(info){
+			return res.status(401).send(info.reason);
+		}
+		return req.login(user, async (loginErr) => {
+			if(loginErr){
+				return next(loginErr);
+			}
+			const fullUser = await db.User.findOne({
+				where: { id: user.id }, // 검색할 대상
+				include: [{ // 추가로 가져올 db와 내용
+					model: db.PortfolioPost,
+					attributes: ['id'],
+				}],
+				attributes: ['id', 'email', 'nickname', 'phone', 'website', 'admin'], // 속성 필터링
+			});
+			return res.json(fullUser);
+		});
+	})(req, res, next);
+})
+// 로그아웃
+router.get('/logout', isLoggedIn, (req, res, next) => {
+	req.logout();
+	req.session.destroy();
+	res.redirect('/');
+});
 
 // 회원가입
 router.post('/', async (req, res, next) => {
