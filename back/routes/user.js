@@ -32,10 +32,11 @@ router.post('/login', (req, res, next) => {
 	})(req, res, next);
 })
 // 로그아웃
-router.get('/logout', isLoggedIn, (req, res, next) => {
+router.get('/logout', isNotLoggedIn, (req, res, next) => {
+	console.log('로그아웃 호출');
 	req.logout();
 	req.session.destroy();
-	res.redirect('/');
+	res.send('로그아웃');
 });
 
 // 회원가입

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip } from 'antd';
 import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
+
+import { LOGOUT_REQUEST } from '../reducers/user';
 
 // style
 const RootWrap = styled.div`
@@ -36,8 +38,14 @@ const SideBar = styled(Sider)`
 const AppLayout = ({children}) => {
 	const urlPath = useRef('');
 	const userInfo = useSelector(state => state.user.userInfo);
+	const dispatch = useDispatch();
 
 	//method
+	const logOut = () => {
+		dispatch({
+			type: LOGOUT_REQUEST,
+		});
+	}
 
 	useEffect(() => {
 		urlPath.current = Router.pathname;
@@ -57,7 +65,7 @@ const AppLayout = ({children}) => {
 									<Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
 									{
 										userInfo ?
-										<Menu.Item key="logout"><Link href="/logout"><a>Logout</a></Link></Menu.Item>
+										<Menu.Item key="logout" onClick={logOut}>Logout</Menu.Item>
 										:
 										<Menu.Item key="login"><Link href="/login"><a>Login</a></Link></Menu.Item>
 									}

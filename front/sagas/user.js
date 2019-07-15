@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
 	LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
 	SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
+	LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
 } from '../reducers/user';
 
 
@@ -13,8 +14,8 @@ function loginAPI(loginData){
 	});
 }
 function* login(action){
-	const result = yield call(loginAPI, action.data);
 	try{
+		const result = yield call(loginAPI, action.data);
 		yield put({
 			type: LOG_IN_SUCCESS,
 			data: result.data,
@@ -26,10 +27,33 @@ function* login(action){
 			error: e,
 		});
 	}
-	yield call();
 }
 function* watchLogin(){
 	yield takeEvery(LOG_IN_REQUEST, login);
+}
+
+// 로그아웃
+function logoutAPI(){
+	return axios.get('/user/logout', {}, {
+		withCredentials: true,
+	});
+}
+function* logout(){
+	try{
+		yield call(logoutAPI);
+		yield put({
+			type: LOGOUT_SUCCESS,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: LOGOUT_FAILURE,
+			error: e,
+		});
+	}
+}
+function* watchLogout(){
+	yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
 // 회원가입
@@ -37,8 +61,8 @@ function signUpAPI(data){
 	return axios.post('/user/', data);
 }
 function* signUp(action){
-	yield call(signUpAPI, action.data);
 	try{
+		yield call(signUpAPI, action.data);
 		yield put({
 			type: SIGNUP_SUCCESS,
 		});
@@ -58,6 +82,7 @@ function* watchSignup(){
 export default function* postSaga() {
   yield all([
     fork(watchLogin),
+    fork(watchLogout),
     fork(watchSignup),
   ]);
 }

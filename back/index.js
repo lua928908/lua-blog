@@ -41,6 +41,7 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
   cookie: {
+	//maxAge: 3600000, 1hour
     httpOnly: true,
     secure: false, // https를 쓸 때 true
     domain: prod && '.where-code.com',

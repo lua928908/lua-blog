@@ -1,6 +1,7 @@
 import React from 'react';
+import Router from 'next/router';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import styled from 'styled-components';
 
@@ -34,6 +35,14 @@ class NormalLoginForm extends React.Component {
 			});
 		});
 	};
+
+	componentDidUpdate() {
+		if( this.props.userInfo ){
+			Router.push('/');
+		}else{
+			console.log('아닌중');
+		}
+	}
 
 	render() {
 	const { getFieldDecorator } = this.props.form;
@@ -92,10 +101,11 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLogin
 
 const Login = () => {
 	const dispatch = useDispatch();
+	const userInfo = useSelector(state => state.user.userInfo);
 
 	return (
 		<>
-			<WrappedNormalLoginForm dispatch={dispatch}>
+			<WrappedNormalLoginForm dispatch={dispatch} userInfo={userInfo}>
 
 			</WrappedNormalLoginForm>
 		</>
