@@ -6,7 +6,6 @@ import {
 	LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
 } from '../reducers/user';
 
-
 // 로그인
 function loginAPI(loginData){
 	return axios.post('/user/login', loginData, {
@@ -73,7 +72,6 @@ function* signUp(action){
 			error: e,
 		});
 	}
-	yield call();
 }
 function* watchSignup(){
 	yield takeEvery(SIGNUP_REQUEST, signUp);

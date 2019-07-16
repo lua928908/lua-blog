@@ -42,11 +42,7 @@ const PostList = ({ listData }) => {
 					pageSize: 3,
 				}}
 				dataSource={listData}
-				footer={
-					<div>
-						<b>공지사항</b> 
-					</div>
-				}
+				footer={<div></div>}
 				renderItem={item => (
 				<List.Item
 					key={item.title}

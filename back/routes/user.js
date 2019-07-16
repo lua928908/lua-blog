@@ -33,7 +33,6 @@ router.post('/login', (req, res, next) => {
 })
 // 로그아웃
 router.get('/logout', isNotLoggedIn, (req, res, next) => {
-	console.log('로그아웃 호출');
 	req.logout();
 	req.session.destroy();
 	res.send('로그아웃');
@@ -52,11 +51,12 @@ router.post('/', async (req, res, next) => {
 			return res.status(403).send('이미 사용중인 아이디입니다.');
 		}
 		const hashedPassword = await bcrypt.hash(req.body.password, 12);
+		const phoneNumber = req.body.phone ? (req.body.prefix + req.body.phone) : null;
 		const newUser = await db.User.create({
 			email: req.body.email,
 			nickname: req.body.nickname,
 			password: hashedPassword,
-			phone: (req.body.prefix + req.body.phone) || null,
+			phone: phoneNumber,
 			website: req.body.website || null,
 		});
 		console.log(newUser);

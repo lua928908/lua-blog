@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Alert } from 'antd';
 import styled from 'styled-components';
 
 import { LOG_IN_REQUEST } from '../reducers/user';
@@ -38,9 +38,10 @@ class NormalLoginForm extends React.Component {
 
 	componentDidUpdate() {
 		if( this.props.userInfo ){
+			// 로그인
 			Router.push('/');
 		}else{
-			console.log('아닌중');
+			// 비로그인
 		}
 	}
 

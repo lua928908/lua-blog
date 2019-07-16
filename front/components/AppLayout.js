@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip, message } from 'antd';
 import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -45,7 +45,7 @@ const AppLayout = ({children}) => {
 		dispatch({
 			type: LOGOUT_REQUEST,
 		});
-	}
+	};
 
 	useEffect(() => {
 		urlPath.current = Router.pathname;

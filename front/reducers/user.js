@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { message } from 'antd';
 
 // 기본 state의 상태
 export const initialState = {
@@ -8,6 +9,8 @@ export const initialState = {
 	registerDone: false, // 회원가입 성공 여부
 	isUserAdmin: false, // 로그인된 유저의 관리자 여부
 };
+
+export const INIT_USER_FLAG = 'INIT_USER_FLAG';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -23,9 +26,14 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 
 
+
 const reducer = (state = initialState, action) => {
 	return produce(state, (draft) => {
 		switch (action.type) {
+			case INIT_USER_FLAG: {
+				draft.registerDone = false; // 회원가입 이력 삭제
+				break;
+			}
 			case LOG_IN_REQUEST: {
 				draft.isLoggingIn = true;
 				break;
@@ -55,6 +63,7 @@ const reducer = (state = initialState, action) => {
 			case LOGOUT_SUCCESS: {
 				draft.userInfo = '';
 				draft.isUserAdmin = false;
+				message.info('로그아웃 되었습니다.');
 				break;
 			}
 			case LOGOUT_FAILURE: {

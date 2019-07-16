@@ -1,9 +1,9 @@
 import React, { Component, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, } from 'antd';
-import { SIGNUP_REQUEST } from '../reducers/user';
-import { message } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Alert, Checkbox, Button, AutoComplete, } from 'antd';
+import { SIGNUP_REQUEST, INIT_USER_FLAG } from '../reducers/user';
 import Router from 'next/router';
+import styled from 'styled-components';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -238,13 +238,47 @@ class RegistrationForm extends React.Component {
 
 const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
 
+
+// css
+const Wrap = styled.div`
+	position: relative;
+	height: 100%;
+`;
+const AlertWrap = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 1;
+
+	& > div {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	& .alert {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+`;
+
 const Register = () => {
 	const dispatch = useDispatch();
 	const registerDone = useSelector(state => state.user.registerDone);
 
 	useEffect(() => {
+		dispatch({
+			type: INIT_USER_FLAG,
+		});
+	}, []);
+
+	useEffect(() => {
 		if(registerDone){
-			message.success('회원가입이 완료되었습니다.', 4);
 			setTimeout(() =>{
 				Router.push('/login');
 			}, 4000)
@@ -253,7 +287,22 @@ const Register = () => {
 
 	return (
 		<>
-			<WrappedRegistrationForm dispatch={dispatch}></WrappedRegistrationForm>
+			<Wrap>
+				<WrappedRegistrationForm dispatch={dispatch}></WrappedRegistrationForm>
+				{
+					registerDone &&
+					<AlertWrap>
+						<div>
+							<Alert className="alert"
+								message="회원가입 완료"
+								description="회원가입이 완료되었습니다, 잠시후 메인으로 이동합니다."
+								type="success"
+								showIcon
+							/>
+						</div>
+					</AlertWrap>
+				}
+			</Wrap>
 		</>
 	)
 };
