@@ -1,38 +1,14 @@
 import { all, fork, takeLatest, takeEvery, put, throttle, call } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-	TEST_SAGA_REQUEST, TEST_SAGA_SUCCESS, TEST_SAGA_FAILURE,
 	LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
 	ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
 } from '../reducers/post';
 
-// test saga
-function testAPI(){
-	return 9289;
-}
-function* testCallback(){
-	try{
-		const result = call(testAPI);
-		yield put({
-			type: TEST_SAGA_SUCCESS,
-			data: result,
-		});
-	}catch(e){
-		console.error(e);
-		yield put({
-			type: TEST_SAGA_FAILURE,
-			error: e,
-		});
-	}
-}
-function* watchTestSaga(){
-	yield takeEvery(TEST_SAGA_REQUEST, testCallback);
-}
-
 
 // 게시물 쓰기
-function addPostAPI(data){
-	return data;
+function addPostAPI(postData){
+	return axios.post(`${postData.category}`, postData);
 }
 function* addPost(action){
 	try{
@@ -80,7 +56,6 @@ function* watchLoadPost(){
 
 export default function* postSaga() {
   yield all([
-    fork(watchTestSaga),
     fork(watchLoadPost),
     fork(watchAddPost),
   ]);

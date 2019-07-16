@@ -8,10 +8,10 @@ const expressSession = require('express-session');
 const passport = require('passport');
 
 const db = require('./models');
-const portfolioRouter = require('./routes/portfolio');
-const userRouter = require('./routes/user');
 const prod = process.env.NODE_ENV === 'production';
 const passportConfig = require('./passport/index');
+const userRouter = require('./routes/user');
+const portfolioRouter = require('./routes/portfolio');
 
 dotenv.config();
 db.sequelize.sync();
