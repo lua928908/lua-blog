@@ -33,13 +33,11 @@ const EditForm = ({ category }) => {
 		resultContent = editorSourceHTML;
 	}, [editorState]);
 
-	const portfolioAddPost = useCallback(() => {
-		console.log(title);
-		console.log(description);
+	const addPost = useCallback(() => {
 		dispatch({
 			type: ADD_POST_REQUEST,
+			category: category,
 			data: {
-				category,
 				auth: userInfo.email,
 				nickname: userInfo.nickname,
 				imagePath: null,
@@ -73,7 +71,7 @@ const EditForm = ({ category }) => {
 				editorClassName="demo-editor"
 				onEditorStateChange={onEditorStateChange}
 			/>
-			<button onClick={portfolioAddPost}>submit</button>
+			<button onClick={addPost}>submit</button>
 		</>
 	);
 };

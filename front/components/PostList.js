@@ -63,7 +63,7 @@ const PostList = ({ listData }) => {
 					title={<a href={item.href}>{item.title}</a>}
 					description={item.description}
 				/>
-					{item.content}
+					{item.content.replace(/(<([^>]+)>)/ig,"")}
 				</List.Item>
 				)}
 			/>

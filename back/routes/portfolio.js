@@ -6,9 +6,9 @@ router.get('/', async (req, res, next) => {
 	try{
 		const posts = await db.PortfolioPost.findAll({
 			where: 1,
-			attributes: ['auth','href','title','avatar','description','content','imagePath','createdAt','updatedAt'],
+			attributes: ['id','auth','nickname','href','title','avatar','description','content','imagePath','createdAt','updatedAt'],
+			order: [['createdAt', 'DESC']],
 		})
-		console.log('포스츠 = ', posts);
 		return res.json(posts);
 	}catch(e){
 		console.error(e);
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
 	try{
-		const newPost = db.PortfolioPost.create({
+		const newPost = await db.PortfolioPost.create({
 			auth: req.body.auth,
 			nickname: req.body.nickname,
 			href: req.body.href || null,
@@ -29,6 +29,7 @@ router.post('/', async (req, res, next) => {
 			imagePath: req.body.imagePath || null,
 			UserId: req.user.id,
 		});
+		console.log('뉴포스트 = ', newPost);
 		return res.status(200).json(newPost);
 	}catch(e){
 		console.error(e);

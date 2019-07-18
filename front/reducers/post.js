@@ -1,7 +1,8 @@
 import produce from 'immer';
 
 export const initialState = {
-	portfolioPost: [],
+	loadPostCategory: '',
+	showPosts: [],
 	imagePaths: [], // 미리보기 이미지 경로
 	singlePost: null,
 };
@@ -66,21 +67,19 @@ export default (state = initialState, action) => {
 				break;
 			}
 			case ADD_POST_SUCCESS: {
-				console.log('받은 액션',action);
-				console.log('카테고리', action.data.category);
-				console.log('내가 쓴글', action.data);
-				//const category = action.data.category+Post;
-				// draft.category.unshift(acton.data.post);
+				console.log('애드포스트 받은 액션', action);
+				draft.showPosts.unshift(action.data.data);
 				break;
 			}
 			case ADD_POST_FAILURE: {
 				break;
 			}
 			case LOAD_POST_REQUEST: {
+				draft.loadPostCategory = action.category;
 				break;
 			}
 			case LOAD_POST_SUCCESS: {
-				draft.portfolioPost = dummyData;
+				draft.showPosts = action.data;
 			}
 			case LOAD_POST_FAILURE: {
 				draft.loadPostErrorReason = action.error

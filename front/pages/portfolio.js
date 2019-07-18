@@ -6,14 +6,14 @@ import { LOAD_POST_REQUEST } from '../reducers/post';
 const Portfolio = () => {
 	const dispatch = useDispatch();
 
-	const listData = useSelector(state => state.post.portfolioPost);
+	const listData = useSelector(state => state.post.showPosts);
 
 	useEffect(() => {
 		dispatch({
 			type: LOAD_POST_REQUEST,
 			category: 'portfolio',
 		})
-	}, [listData]);
+	}, []);
 
 	return (
 		<>

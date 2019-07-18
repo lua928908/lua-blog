@@ -6,18 +6,24 @@ import {
 } from '../reducers/post';
 
 
-// 게시물 쓰기
+// 게시물 작성
 function addPostAPI(postData){
-	return axios.post(`/${postData.category}`, postData, {
+	return axios.post(`/${postData.category}`, postData.data, {
 		withCredentials: true,
 	});
 }
 function* addPost(action){
 	try{
-		const result = yield call(addPostAPI, action.data);
+		const result = yield call(addPostAPI, {
+			category: action.category,
+			data: action.data,
+		});
 		yield put({
 			type: ADD_POST_SUCCESS,
-			data: result.config.data,
+			data: {
+				category: action.category,
+				data: result.data,
+			},
 		});
 	}catch(e){
 		console.error(e);
