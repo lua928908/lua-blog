@@ -39,7 +39,7 @@ class NormalLoginForm extends React.Component {
 	componentDidUpdate() {
 		if( this.props.userInfo ){
 			// 로그인
-			Router.push('/');
+			Router.back();
 		}else{
 			// 비로그인
 		}

@@ -11,6 +11,7 @@ const Portfolio = () => {
 	useEffect(() => {
 		dispatch({
 			type: LOAD_POST_REQUEST,
+			category: 'portfolio',
 		})
 	}, [listData]);
 

@@ -41,12 +41,12 @@ const EditForm = ({ category }) => {
 			data: {
 				category,
 				auth: userInfo.email,
+				nickname: userInfo.nickname,
 				imagePath: null,
 				href: null,
 				title,
 				description,
 				content: resultContent,
-				
 			},
 		});
 		setTitle('');

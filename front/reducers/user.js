@@ -42,6 +42,7 @@ const reducer = (state = initialState, action) => {
 				draft.isLoggingIn = false;
 				draft.userInfo = action.data;
 				draft.isUserAdmin = action.data.admin ? true : false;
+				message.info('로그인 되었습니다.');
 				break;
 			}
 			case LOG_IN_FAILURE: {

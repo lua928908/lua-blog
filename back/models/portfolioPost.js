@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(20),
 			allowNull: false,
 		},
+		nickname: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
+		},
 		href: {
 			type: DataTypes.STRING(200),
 			allowNull: true,

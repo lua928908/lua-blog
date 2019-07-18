@@ -8,15 +8,16 @@ import {
 
 // 게시물 쓰기
 function addPostAPI(postData){
-	return axios.post(`${postData.category}`, postData);
+	return axios.post(`/${postData.category}`, postData, {
+		withCredentials: true,
+	});
 }
 function* addPost(action){
 	try{
 		const result = yield call(addPostAPI, action.data);
-		console.log(result);
 		yield put({
 			type: ADD_POST_SUCCESS,
-			data: result,
+			data: result.config.data,
 		});
 	}catch(e){
 		console.error(e);
@@ -32,15 +33,15 @@ function* watchAddPost(){
 
 
 // 게시물 가져오기
-function loadPostAPI(data){
-	return 8246;
+function loadPostAPI(postCategory){
+	return axios.get(`${postCategory}`);
 };
 function* loadPost(action){
 	try{
-		const result = yield call(loadPostAPI, action.data);
+		const result = yield call(loadPostAPI, action.category);
 		yield put({
 			type: LOAD_POST_SUCCESS,
-			data: result,
+			data: result.data,
 		});
 	}catch(e){
 		console.error(e);

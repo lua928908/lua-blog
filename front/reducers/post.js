@@ -1,18 +1,9 @@
 import produce from 'immer';
 
 export const initialState = {
-  mainPosts: [], // 화면에 보일 포스트들
-  imagePaths: [], // 미리보기 이미지 경로
-  addPostErrorReason: '', // 포스트 업로드 실패 사유
-  isAddingPost: false, // 포스트 업로드 중
-  postAdded: false, // 포스트 업로드 성공
-  isAddingComment: false,
-  addCommentErrorReason: '',
-  commentAdded: false,
-  singlePost: null,
-  test: '',
-  portfolioPost: [],
-  loadPostErrorReason: '',
+	portfolioPost: [],
+	imagePaths: [], // 미리보기 이미지 경로
+	singlePost: null,
 };
 
 const dummyData = [
@@ -55,10 +46,6 @@ const dummyData = [
 	}
 ];
 
-export const TEST_SAGA_REQUEST = 'TEST_SAGA_REQUEST';
-export const TEST_SAGA_SUCCESS = 'TEST_SAGA_SUCCESS';
-export const TEST_SAGA_FAILURE = 'TEST_SAGA_FAILURE';
-
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
@@ -67,25 +54,23 @@ export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
 export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
+export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
+export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
+export const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
+
 
 export default (state = initialState, action) => {
 	return produce(state, (draft) => {
 		switch (action.type) {
-			case TEST_SAGA_REQUEST: {
-				draft.test = "테스트중";
-				break;
-			}
-			case TEST_SAGA_SUCCESS: {
-				draft.test = "테스트 성공";
-				break;
-			}
-			case TEST_SAGA_FAILURE: {
-				break;
-			}
 			case ADD_POST_REQUEST: {
 				break;
 			}
 			case ADD_POST_SUCCESS: {
+				console.log('받은 액션',action);
+				console.log('카테고리', action.data.category);
+				console.log('내가 쓴글', action.data);
+				//const category = action.data.category+Post;
+				// draft.category.unshift(acton.data.post);
 				break;
 			}
 			case ADD_POST_FAILURE: {
