@@ -62,7 +62,7 @@ const PostList = ({ listData, category }) => {
 				>
 				<List.Item.Meta
 					avatar={<Avatar src={item.avatar} />}
-					title={<a href={item.href}>{item.title}</a>}
+					title={<Link href={{ pathname: '/singlepost', query: {id: item.id} }} as={`/singlepost/${item.id}`}><a>{item.title}</a></Link>}
 					description={item.description}
 				/>
 					{item.content.replace(/(<([^>]+)>)/ig,"")}

@@ -67,7 +67,6 @@ export default (state = initialState, action) => {
 				break;
 			}
 			case ADD_POST_SUCCESS: {
-				console.log('애드포스트 받은 액션', action);
 				draft.showPosts.unshift(action.data.data);
 				break;
 			}

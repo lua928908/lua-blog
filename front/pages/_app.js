@@ -10,7 +10,7 @@ import AppLayout from '../components/AppLayout';
 import reducer from '../reducers/index';
 import rootSaga from '../sagas';
 
-const luaBlog = ({ Component, store }) => {
+const luaBlog = ({ Component, store, pageProps }) => {
 	return (
 		<>
 			<Provider store={store}>
@@ -21,13 +21,27 @@ const luaBlog = ({ Component, store }) => {
 				</Head>
 
 				<AppLayout>
-					<Component children={Component} />
+					<Component {...pageProps} />
 				</AppLayout>
 			</Provider>
 		</>
 	);
 };
 
+
+// next+express - wildcard, SSR을 위해 필요
+luaBlog.getInitialProps = async (context) => {
+	const { ctx, Component } = context; // context는 next가 제공
+	let pageProps = {};
+	
+	if( context.Component.getInitialProps ){
+		// 각 컴포넌트가 return한 값이 pageProps에 담긴다.
+		pageProps = await context.Component.getInitialProps(ctx) || {}; // component에 getInitialProps를 설정한다.
+	}
+    return { pageProps };
+};
+
+// redux, redux-saga를 위해 필요
 const configureStore = (initialState, options) => { // 02. next-redux-wrapper모듈이 root컴포넌트가 store를 prop로 받을 수 있게 해준다.
 	const sagaMiddleware = createSagaMiddleware();
 	const middlewares = [sagaMiddleware];

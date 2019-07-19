@@ -1,6 +1,6 @@
 {
 	"whatch": [
-		"next",
+		"server",
 		"nodemon.json"
 	],
 	"exec": "node server.js",
