@@ -33,6 +33,30 @@ const SideBar = styled(Sider)`
 	height: calc(100vh - (64px + 69px));
 	background-color: red;
 `;
+const SkillList = styled.ul`
+	display: inline-block;
+	margin: 0;
+
+	& li {
+		position: relative;
+		display: inline-block;
+		padding: 0 10px;
+		font-size: 15px;
+	}
+	& li:after {
+		content: "";
+		position: absolute;
+		top: calc(50% + 1px);
+		right: 0;
+		width: 1px;
+		height: 12px;
+		background-color: #fff;
+		transform: translate(0, -50%);
+	}
+	& li:last-child:after {
+		display: none;
+	}
+`;
 
 
 const AppLayout = ({children}) => {
@@ -113,7 +137,18 @@ const AppLayout = ({children}) => {
 						</Layout>
 					</Layout>
 					<Footer>
-						Copyright © 2019
+						사용된 개발스택
+						<SkillList>
+							<li>React</li>
+							<li>Redux</li>
+							<li>Redux-Saga</li>
+							<li>Next</li>
+							<li>Node</li>
+							<li>Webpack</li>
+							<li>Styled-Components</li>
+							<li>AntDesign</li>
+							<li>Amazon</li>
+						</SkillList>
 					</Footer>
 				</Layout>
 			</div>

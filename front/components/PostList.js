@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { List, Avatar, Icon, Button, Modal } from 'antd';
+import { List, Avatar, Icon, Button, Modal, Tooltip } from 'antd';
 import styled from 'styled-components';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import EditForm from '../components/EditForm';
 
@@ -15,7 +17,7 @@ const IconText = ({ type, text }) => (
 	</span>
 );
 
-const PostList = ({ listData }) => {
+const PostList = ({ listData, category }) => {
 	const isUserAdmin = useSelector(state => state.user.isUserAdmin);
 	const [editModalState, setEditModalState] = useState(false);
 
@@ -37,7 +39,7 @@ const PostList = ({ listData }) => {
 				size="large"
 				pagination={{
 					onChange: page => {
-					console.log(page);
+						console.log(page);
 					},
 					pageSize: 3,
 				}}
@@ -47,9 +49,9 @@ const PostList = ({ listData }) => {
 				<List.Item
 					key={item.title}
 					actions={[
-						<IconText type="star-o" text="156" />,
-						<IconText type="like-o" text="156" />,
-						<IconText type="message" text="2" />,
+						<IconText type="edit" text={<Moment format="YYYY.MM.DD HH:MM" date={item.createdAt} />} />,
+						<IconText type="message" text={'준비중'} />,
+						<IconText type="star-o" text={item.star} />,
 					]}
 					extra={
 						item && item.imagePath ?
@@ -77,7 +79,7 @@ const PostList = ({ listData }) => {
 				onOk={handleOk}
 				onCancel={handleCancel}
 			>
-				<EditForm category="portfolio"></EditForm>
+				<EditForm category={category}></EditForm>
 			</Modal>
 		</>
 	);

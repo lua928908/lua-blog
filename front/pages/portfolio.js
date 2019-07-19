@@ -7,18 +7,19 @@ const Portfolio = () => {
 	const dispatch = useDispatch();
 
 	const listData = useSelector(state => state.post.showPosts);
+	const category = 'portfolio';
 
 	useEffect(() => {
 		dispatch({
 			type: LOAD_POST_REQUEST,
-			category: 'portfolio',
+			category,
 		})
 	}, []);
 
 	return (
 		<>
 			<h1>포트폴리오</h1>
-			<PostList listData={listData}>
+			<PostList listData={listData} category={category}>
 
 			</PostList>
 		</>
