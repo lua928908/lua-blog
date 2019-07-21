@@ -86,7 +86,7 @@ class NormalLoginForm extends React.Component {
 					<a className="login-form-forgot" href="">
 						비밀번호 찾기
 					</a>
-					<Button type="primary" htmlType="submit" className="login-form-button">
+					<Button type="primary" htmlType="submit" className="login-form-button" loading={this.props.isLoggingIn}>
 						Log in
 					</Button>
 					<Link href={{ pathname: 'register' }}><a>회원가입</a></Link>
@@ -103,10 +103,11 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLogin
 const Login = () => {
 	const dispatch = useDispatch();
 	const userInfo = useSelector(state => state.user.userInfo);
+	const isLoggingIn = useSelector(state => state.user.isLoggingIn);
 
 	return (
 		<>
-			<WrappedNormalLoginForm dispatch={dispatch} userInfo={userInfo}>
+			<WrappedNormalLoginForm dispatch={dispatch} userInfo={userInfo} isLoggingIn={isLoggingIn}>
 
 			</WrappedNormalLoginForm>
 		</>

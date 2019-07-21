@@ -62,7 +62,8 @@ const PostList = ({ listData, category }) => {
 				>
 				<List.Item.Meta
 					avatar={<Avatar src={item.avatar} />}
-					title={<Link href={{ pathname: '/singlepost', query: {id: item.id} }} as={`/singlepost/${item.id}`}><a>{item.title}</a></Link>}
+					// 주소는 category/post/id 지만 next에 pagas와 맞아야 하기때문에 post를 보여줌
+					title={<Link href={{ pathname: '/post', query: {id: item.id} }} as={`/${category}/post/${item.id}`}><a>{item.title}</a></Link>}
 					description={item.description}
 				/>
 					{item.content.replace(/(<([^>]+)>)/ig,"")}

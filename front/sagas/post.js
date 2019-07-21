@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
 	LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
 	ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
+	LOAD_SINGLE_POST_REQUEST, LOAD_SINGLE_POST_SUCCESS, LOAD_SINGLE_POST_FAILURE,
 } from '../reducers/post';
 
 
@@ -61,9 +62,37 @@ function* watchLoadPost(){
 	yield takeLatest(LOAD_POST_REQUEST, loadPost);
 };
 
+// 한개의 게시물 가져오기
+function loadSinglePostAPI(postData){
+	return axios.get(`${postData.category}/${postData.id}`);
+};
+function* loadSinglePost(action){
+	try{
+		const result = yield call(loadSinglePostAPI, {
+			category: action.category,
+			id: action.id,
+		});
+		console.log('리절트 = ',result);
+		yield put({
+			type: LOAD_SINGLE_POST_SUCCESS,
+			data: result.data,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: LOAD_SINGLE_POST_FAILURE,
+			error: e,
+		});
+	}
+};
+function* watchLoadSinglePost(){
+	yield takeLatest(LOAD_SINGLE_POST_REQUEST, loadSinglePost);
+};
+
 export default function* postSaga() {
   yield all([
+	fork(watchAddPost),
     fork(watchLoadPost),
-    fork(watchAddPost),
+    fork(watchLoadSinglePost),
   ]);
 }

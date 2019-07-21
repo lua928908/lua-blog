@@ -32,11 +32,21 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(200),
 			allowNull: true,
 		},
+		star: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			defaultValue: 0,
+		},
 	}, {
 		charset: 'utf8',
 		collate: 'utf8_general_ci',
 		timestamps: true,
 		paranoid: true,
 	})
+
+	PortfolioPost.associate = (db) => {
+		db.PortfolioPost.belongsTo(db.User);
+	};
+
 	return PortfolioPost;
 };

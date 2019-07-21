@@ -34,12 +34,11 @@ app.prepare().then(() => {
 
 
 	// 와일드카드 처리는 별도로 지정해야함
-	server.get('/test/:id', (req, res) => {
-		return app.render(req, res, '/test', { id: req.params.id });
+	server.get('/portfolio/:id', (req, res) => {
+		console.log('포트폴리오:id');
+		return app.render(req, res, '/post', { id: req.params.id });
 	});
-	server.get('/singlepost/:id', (req, res) => {
-		return app.render(req, res, '/singlepost', { id: req.params.id });
-	});
+
 	// 일반 요청은 next와 동일하게 처리
 	server.get('*', (req, res) => {
 		return handle(req, res);

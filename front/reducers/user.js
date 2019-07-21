@@ -46,6 +46,10 @@ const reducer = (state = initialState, action) => {
 				break;
 			}
 			case LOG_IN_FAILURE: {
+				draft.isLoggingIn = false;
+				console.log(action);
+				draft.loginErrorReason = action.error.response.data;
+				message.info('계정 또는 비밀번호가 일치하지 않습니다.');
 				break;
 			}
 			case SIGNUP_REQUEST: {

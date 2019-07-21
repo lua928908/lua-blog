@@ -1,10 +1,10 @@
 import produce from 'immer';
 
 export const initialState = {
-	loadPostCategory: '',
-	showPosts: [],
+	loadPostCategory: '', // 현재 보고있는 카테고리
+	showPosts: [], // 게시글 목록
 	imagePaths: [], // 미리보기 이미지 경로
-	singlePost: null,
+	singlePost: '', // 하나의 게시글
 };
 
 const dummyData = [
@@ -55,6 +55,10 @@ export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
 export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
+export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
+export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
+export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
+
 export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
 export const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
@@ -82,6 +86,16 @@ export default (state = initialState, action) => {
 			}
 			case LOAD_POST_FAILURE: {
 				draft.loadPostErrorReason = action.error
+			}
+			case LOAD_SINGLE_POST_REQUEST: {
+				break;
+			}
+			case LOAD_SINGLE_POST_SUCCESS: {
+				draft.singlePost =action.data;
+				break;
+			}
+			case LOAD_SINGLE_POST_FAILURE: {
+				break;
 			}
 			default: {
 				break;

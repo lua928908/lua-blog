@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery, delay } from 'redux-saga/effects';
 import axios from 'axios';
 import {
 	LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
@@ -15,6 +15,7 @@ function loginAPI(loginData){
 function* login(action){
 	try{
 		const result = yield call(loginAPI, action.data);
+		yield delay(1000);
 		yield put({
 			type: LOG_IN_SUCCESS,
 			data: result.data,
