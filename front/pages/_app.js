@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
-import withReduxSaga from 'next-redux-saga';
+import withReduxSaga from 'next-redux-saga'; // next, getInitialProps SSR을 위해필요
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -52,7 +52,7 @@ const configureStore = (initialState, options) => { // 02. next-redux-wrapper모
 		!options.isServer && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
 	);
 	const store = createStore(reducer, initialState, enhancer); // 01. redux모듈이 사용자가 만든 reducer를 토대로 store를 생성
-	store.sagaTask = sagaMiddleware.run(rootSaga);
+	store.sagaTask = sagaMiddleware.run(rootSaga); // next에서 SSR을 할때 store.sagaTask를 필요로함
 	return store;
 };
 

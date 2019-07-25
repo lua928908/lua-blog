@@ -9,6 +9,7 @@ const CurrentTime = () => {
 	useEffect(() => {
 		const setTime = setInterval(() => {
 			timeLog.current = new Date();
+			console.log(new Date());
 		}, 1000);
 		
 		return () => {

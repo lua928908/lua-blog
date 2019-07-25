@@ -8,6 +8,7 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
 import { LOGOUT_REQUEST } from '../reducers/user';
+import { isContext } from 'vm';
 
 // style
 const RootWrap = styled.div`
@@ -16,17 +17,34 @@ const RootWrap = styled.div`
 
 	& > div {
 		margin: 0 auto;
+		padding: 64px 0 70px;
 		max-width: 1200px;
 		width: 100%;
 	}
+
+	& Header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		max-width: 1200px;
+		width: 100%;
+		z-index: 100;
+	}
+
 	& Menu.Item {
 		font-size: 18px;
 		cursor: pointer;
 	}
 
 	& Footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		max-width: 1200px;
+		width: 100%;
 		background-color: #001529;
 		color: #fff;
+		z-index: 100;
 	}
 `;
 const SideBar = styled(Sider)`
@@ -156,5 +174,7 @@ const AppLayout = ({children}) => {
 		</>
 	);
 };
+
+
 
 export default AppLayout;

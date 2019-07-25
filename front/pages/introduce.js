@@ -165,9 +165,18 @@ const Introduce = () => {
 							소속된 동물원 공연팀의 오너분이 젊은시절 와일드한 성격이였는데 많이 소프트해졌다고함 가끔씩 중요한 순간에 카리스마가 나옴
 							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움 임창정+주성치 닮음
 						</Timeline.Item>
-						<Timeline.Item>dfdf</Timeline.Item>
+						<Timeline.Item>2015.03 한국IT전문학교 웹디자인과 입학</Timeline.Item>
+						<Timeline.Item>코딩을 경험한 이후 개발자 취업준비</Timeline.Item>
+						<Timeline.Item>2017.02 웹 에이전시 (주)스튜디오블룸 입사</Timeline.Item>
 						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
-							<CurrentTime></CurrentTime> TIME
+							<Tooltip title="음, 너무멋있고">
+								<ColorGreen>
+									<b>
+									나는 세상을 강자와 약자, 성공과 실패로 나누지 않는다. 나는 세상을 배우는 사람과 배우지 않는 사람으로 나눈다.
+									<p style={{marginTop: '10px'}}>- 벤자민 바버 -</p>
+									</b>
+								</ColorGreen>
+							</Tooltip>
 						</Timeline.Item>
 					</Timeline>
 				</History>
