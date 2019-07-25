@@ -4,6 +4,7 @@ import {
 	LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
 	SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
 	LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
+	CHECK_LOGIN_REQUEST, CHECK_LOGIN_SUCCESS, CHECK_LOGIN_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -78,10 +79,36 @@ function* watchSignup(){
 	yield takeEvery(SIGNUP_REQUEST, signUp);
 }
 
+// 로그인 유저정보 받아오기
+function checkLoginAPI(){
+	return axios.get('/user/', {
+		withCredentials: true,
+	});
+}
+function* checkLogin(){
+	try{
+		const result = yield call(checkLoginAPI);
+		yield put({
+			type: CHECK_LOGIN_SUCCESS,
+			data: result.data,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: CHECK_LOGIN_FAILURE,
+			error: e,
+		});
+	}
+}
+function* watchCheckLogin(){
+	yield takeEvery(CHECK_LOGIN_REQUEST, checkLogin);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
     fork(watchSignup),
+    fork(watchCheckLogin),
   ]);
 }

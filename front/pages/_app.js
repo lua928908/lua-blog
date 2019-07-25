@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga'; // next, getInitialProps SSR을 위해필요
@@ -9,8 +9,11 @@ import createSagaMiddleware from 'redux-saga';
 import AppLayout from '../components/AppLayout';
 import reducer from '../reducers/index';
 import rootSaga from '../sagas';
+import { CHECK_LOGIN_REQUEST } from '../reducers/user';
+import axios from 'axios';
 
 const luaBlog = ({ Component, store, pageProps }) => {
+	
 	return (
 		<>
 			<Provider store={store}>
@@ -33,11 +36,24 @@ const luaBlog = ({ Component, store, pageProps }) => {
 luaBlog.getInitialProps = async (context) => {
 	const { ctx, Component } = context; // context는 next가 제공
 	let pageProps = {};
+
+	const state = ctx.store.getState();
+	const cookie = ctx.isServer ? ctx.req.headers.cookie : ''; // 서버가 아닌경우 req가 없어서 에러생길 수 있음
+
+	if( ctx.isServer && cookie ){ // 서버환경이고 쿠키가 있는경우
+		axios.defaults.headers.Cookie = cookie;
+	}
+	if(!state.user.userInfo){
+		ctx.store.dispatch({
+			type: CHECK_LOGIN_REQUEST,
+		});
+	}
 	
 	if( context.Component.getInitialProps ){
 		// 각 컴포넌트가 return한 값이 pageProps에 담긴다.
 		pageProps = await context.Component.getInitialProps(ctx) || {}; // component에 getInitialProps를 설정한다.
 	}
+
     return { pageProps };
 };
 

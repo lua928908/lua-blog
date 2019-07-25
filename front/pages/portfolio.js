@@ -5,16 +5,9 @@ import { LOAD_POST_REQUEST } from '../reducers/post';
 
 const Portfolio = () => {
 	const dispatch = useDispatch();
-
-	const listData = useSelector(state => state.post.showPosts);
 	const category = 'portfolio';
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_POST_REQUEST,
-			category,
-		})
-	}, []);
+	const listData = useSelector(state => state.post.showPosts);
 
 	return (
 		<>
@@ -24,6 +17,14 @@ const Portfolio = () => {
 			</PostList>
 		</>
 	);
+};
+
+Portfolio.getInitialProps = (context) => {
+
+	context.store.dispatch({
+		type: LOAD_POST_REQUEST,
+		category: 'portfolio',
+	});
 };
 
 export default Portfolio;

@@ -163,7 +163,7 @@ const Introduce = () => {
 						<Timeline.Item>2014.02 에버랜드 공연팀 입사</Timeline.Item>
 						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
 							소속된 동물원 공연팀의 오너분이 젊은시절 와일드한 성격이였는데 많이 소프트해졌다고함 가끔씩 중요한 순간에 카리스마가 나옴
-							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움 임창정+주성치 닮음
+							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움
 						</Timeline.Item>
 						<Timeline.Item>2015.03 한국IT전문학교 웹디자인과 입학</Timeline.Item>
 						<Timeline.Item>코딩을 경험한 이후 개발자 취업준비</Timeline.Item>

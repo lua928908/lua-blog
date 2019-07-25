@@ -7,8 +7,7 @@ import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-import { LOGOUT_REQUEST } from '../reducers/user';
-import { isContext } from 'vm';
+import { LOGOUT_REQUEST, CHECK_LOGIN_REQUEST } from '../reducers/user';
 
 // style
 const RootWrap = styled.div`
