@@ -53,7 +53,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter)
 app.use('/api/portfolio', portfolioRouter)
 app.get('/', (req, res) => {
-	res.send('메인입니다.');
+	res.send('API서버 동작중');
 });
 
 app.listen(3001, () => {

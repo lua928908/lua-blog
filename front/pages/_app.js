@@ -1,32 +1,52 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga'; // next, getInitialProps SSR을 위해필요
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import Helmet from 'react-helmet';
+import { Container } from 'next/app';
 
 import AppLayout from '../components/AppLayout';
 import reducer from '../reducers/index';
 import rootSaga from '../sagas';
-import { CHECK_LOGIN_REQUEST } from '../reducers/user';
 import axios from 'axios';
+import { CHECK_LOGIN_REQUEST } from '../reducers/user';
 
 const luaBlog = ({ Component, store, pageProps }) => {
 	
 	return (
 		<>
-			<Provider store={store}>
-				<Head>
-					<title>Lua - Blog</title>
-					<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.13.2/dist/react-draft-wysiwyg.css" />
-					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.16.2/antd.css" />
-				</Head>
+			<Container>
+				<Provider store={store}>
+					<Helmet
+						title='Lua - Blog'
+						htmlAttributes={{ lang: 'ko' }}
+						meta={[
+							{ charset: 'UTF-8' },
+							{ name: 'viewport', content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover' },
+							{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+							{ name: 'description', content: 'Lua React Blog' },
+							{ name: 'og:title', content: 'Lua React Blog' },
+							{ name: 'og:description', content: 'Lua React Blog' },
+							{ property: 'og:type', content: 'website' },
+							{ property: 'og:image', content: 'http://where-code.com/favicon.ico' },
+						]}
+						link={[
+							{ rel: 'shortcut icon', href: '/favicon.ico' },
+							{ rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.13.2/dist/react-draft-wysiwyg.css' },
+							{ rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.min.css' },
+						]}
+						script={[
+							{ src: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.min.js' }
+						]}
+					/>
 
-				<AppLayout>
-					<Component {...pageProps} />
-				</AppLayout>
-			</Provider>
+					<AppLayout>
+						<Component {...pageProps} />
+					</AppLayout>
+				</Provider>
+			</Container>
 		</>
 	);
 };

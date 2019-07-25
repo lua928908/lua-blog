@@ -20,8 +20,8 @@ router.post('/login', (req, res, next) => {
 				return next(loginErr);
 			}
 			const fullUser = await db.User.findOne({
-				where: { id: user.id }, // 검색할 대상
-				include: [{ // 추가로 가져올 db와 내용
+				where: { id: user.id },
+				include: [{
 					model: db.PortfolioPost,
 					attributes: ['id'],
 				}],
@@ -40,7 +40,6 @@ router.get('/logout', isNotLoggedIn, (req, res, next) => {
 
 // 회원가입
 router.post('/', async (req, res, next) => {
-	console.log(req.body);
 	try {
 		const exUser = await db.User.findOne({
 			where: {
@@ -64,6 +63,18 @@ router.post('/', async (req, res, next) => {
 	} catch (e) {
 		console.error(e);
 		return next(e);
+	}
+});
+
+// 로그인한 유저 정보 받아오기
+router.get('/', isLoggedIn, async (req, res, next) => {
+	try{
+		const user = Object.assign({}, req.user.toJSON());
+		delete user.password;
+		return res.json(user);
+	}catch(e){
+		console.error(e);
+		next(e);
 	}
 });
 

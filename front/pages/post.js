@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Helmet from 'react-helmet';
 
 import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 
@@ -20,6 +21,13 @@ const Post = ({ id }) => {
 
 	return (
 		<>
+			<Helmet
+				title={singlePost.title}
+				description={singlePost.description}
+				meta={[
+					{ name: 'description' , content: singlePost.content },
+				]}
+			/>
 			<h1>{category}</h1>
 			<div>{id}번 글</div>
 

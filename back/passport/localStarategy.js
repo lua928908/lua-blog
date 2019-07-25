@@ -15,9 +15,9 @@ module.exports = () => {
 			}
 			const result = await bcrypt.compare(password, user.password);
 			if(result){
-				done(null, user);
+				return done(null, user);
 			}else{
-				done(null, false, { reason: '비밀번호가 틀립니다.' });
+				return done(null, false, { reason: '비밀번호가 틀립니다.' });
 			}
 		}catch(e){
 			console.error(e);

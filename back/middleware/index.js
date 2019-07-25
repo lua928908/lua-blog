@@ -12,6 +12,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 		res.redirect('/');
 	}
 };
+
 /*
 	passport에서 로그인에 성공하면
 	req.user, req.login, req.logout 와 같은 기능을 사용할 수 있게된다
