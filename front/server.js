@@ -31,6 +31,7 @@ app.prepare().then(() => {
 		},
   		name: 'exapmle_string_luacddiefkm',
 	}));
+	server.use('/', express.static( __dirname + '/public') );
 
 
 	// 와일드카드 처리는 별도로 지정해야함

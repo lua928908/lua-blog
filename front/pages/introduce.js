@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Progress, Tooltip, Row, Col, message, Rate, Collapse, Button, Timeline, Icon } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Progress, Tooltip, Row, Col, message, Rate, Collapse, Button, Timeline, Icon, Modal } from 'antd';
 const { Panel } = Collapse;
 import styled from 'styled-components';
-
-import CurrentTime from '../components/CurrentTime';
 
 // style
 const Wrap = styled.div`
@@ -30,10 +28,49 @@ const QuestionBox = styled.div`
 const History = styled.div`
 	margin-top: 80px;
 `;
-const ColorGreen = styled.span`
-	font-weight: 500;
-	font-size: 16px;
-	color: #008000;
+const Mbti = styled.div`
+	margin: 0 -24px;
+	padding: 30px 24px 80px;
+	background-color: #212424;
+	color: #e1e1e1;
+	font-size: 17px;
+	line-height: 1.8;
+
+	& h2 {
+		margin-bottom: 10px;
+		color: #fff;
+	}
+	& h3 {
+		font-size: 18px;
+		color: #fff;
+		margin-top: 40px;
+	}
+	& img {
+		max-width: 100%;
+		width: 100%;
+	}
+	& p {
+		margin-top: 10px;
+		font-size: 16px;
+	}
+	& button {
+		float: right;
+	}
+`;
+const Box = styled.div`
+	&:first-child {
+		margin-top: 0;
+	}
+	margin-top: 45px;
+	& h3 {
+		font-size: 20px;
+	}
+	& p {
+		margin: 10px 0 0 0;
+	}
+`;
+const TechBox = styled.div`
+	margin-top: 60px;
 `;
 const SkilBox = styled.div`
  	margin-top: 30px;
@@ -42,20 +79,30 @@ const SkilBox = styled.div`
 		text-align: center;
 	}
 `;
-const TechBox = styled.div`
-	margin-top: 60px;
-`;
 const RateWrap = styled.div`
 	margin-top: 60px;
 `;
 
+const ColorGreen = styled.span`
+	font-weight: 500;
+	font-size: 16px;
+	color: #008000;
+`;
+
 const Introduce = () => {
 	const [rateState, setRateState] = useState(3);
+	const [mbtiVisible, setMbtiVisible] = useState(false);
 	const desc = ['별로에요', '부족해요', '무난해요', '좋아요', '훌륭해요'];
 
 	//method
 	const handleChange = (value) => {
 		setRateState(value);
+	};
+	const showMbtiDescription = () => {
+		setMbtiVisible(true);
+	};
+	const openMbtiDescription = () => {
+		setMbtiVisible(false);
 	};
 	
 	return (
@@ -141,6 +188,7 @@ const Introduce = () => {
 				</QuestionBox>
 
 				<History>
+					<Title>TIME LINE</Title>
 					<Timeline mode="alternate">
 						<Timeline.Item>1992.01.17 탄생</Timeline.Item>
 						<Timeline.Item color="red">2002 생에 첫 RPG 게임 라그하임에 중독</Timeline.Item>
@@ -180,6 +228,39 @@ const Introduce = () => {
 						</Timeline.Item>
 					</Timeline>
 				</History>
+
+				<Mbti>
+					<Title>MBTI - 성격검사</Title>
+					<img src="/MBTI.jpeg" alt="asdf"/>
+
+					<h3>성격유형 : “청렴결백한 논리주의자” (ISTJ-A / ISTJ-T)</h3>
+					<p>
+						논리주의자형은 가장 다수의 사람이 속하는 성격 유형으로 인구의 대략 13%를 차지합니다. 청렴결백하면서도 실용적인 논리력과 헌신적으로 임무를 수행하는 성격으로 묘사되기도 하는 이들은, 가정 내에서뿐 아니라 법률 회사나 법 규제 기관 혹은 군대와 같이 전통이나 질서를 중시하는 조직에서 핵심 구성원 역할을 합니다. 이 유형의 사람은 자신이 맡은 바 책임을 다하며 그들이 하는 일에 큰 자부심을 가지고 있습니다. 또한, 목표를 달성하기 위해 시간과 에너지를 허투루 쓰지 않으며, 이에 필요한 업무를 정확하고 신중하게 처리합니다.
+					</p>
+					<Button type="primary" onClick={showMbtiDescription}>
+						전체설명 보기
+					</Button>
+					<Modal
+						title="Lua MBTI 성격검사"
+						visible={mbtiVisible}
+						onOk={openMbtiDescription}
+						okText="확인"
+						closable={false}
+						bodyStyle={{ fontSize: '17px', height: 'calc( 100vh - 320px )', lineHeight: '1.8', overflowY: 'auto' }}
+					>
+						<Box>
+							<h3>뱉은 말에 대한 책임과 평판</h3>
+							<p>논리주의자형 사람이 무언가를 하겠다고 하면 얼마나 많은 희생이 따르던지 자신이 한 말에 책임을 지고자 기어이는 해내고야 맙니다. 이런 그들이기에 자신이 내뱉은 말에 책임을 지지 않는 이들을 보면 어쩔 줄 몰라 합니다. 태만과 부도덕의 조합만큼 논리주의자형 사람의 적이 되는 가장 빠른 지름길도 없을 것입니다. 때문에 이들은 혼자 일하는 것을 선호하며, 대개 일을 진행하는 데 직장 내 토의를 거치거나 다른 이들의 견해를 들을 필요 없이 자신만의 목표를 설정하고 달성을 가능케 하는 어느 정도의 지위나 권한을 가지고 있는 경우가 많습니다.</p>
+							<p>예리하며 사실에 근거하여 사고하는 경향을 가지고 있는 이들은 자율적으로 스스로 알아서 행동하고 책임지기를 원합니다. 이 때문에 이들은 누군가에게 의존하는 것은 약자의 행동이라고 여깁니다. 임무 달성을 위한 열정과 책임감, 그리고 오점 하나 없는 청렴한 이들의 성격으로 하여금 이들을 종종 이러한 오류에 쉽게 빠지게 합니다.</p>
+							<p>이들의 청렴결백한 성격은 논리주의자형 사람을 정의하는 핵심사항으로, 이는 그들이 생각하는 것 이상으로 중요한 부분입니다. 얼마나 많은 희생이 따르든 이들은 일단 정해진 체계나 지침을 고수하며, 비록 사실을 있는 그대로 밝히는 것이 결과적으로 더 큰 분란을 야기할지라도 자신의 잘못을 시인하고 사실을 밝히고자 합니다. 논리주의자형 사람에게 있어 감정적인 고려보다 정직함이 보다 우선시 되기 때문입니다. 때로 이러한 그들의 대담한 행보는 사람들에게 냉정하고 로봇 같다는 잘못된 인상을 심어 주기도 합니다. 감정이나 애정을 밖으로 표출하는 것에 익숙하지 않은 이들은 혹 사람들로부터 냉혈인이라든지, 더 심하게는 ‘감정 자체가 있느냐’와 같은 말을 듣기도 하는데 이에 깊은 상처를 받기도 합니다.</p>
+						</Box>
+						<Box>
+							<h3>백해무익한 무리와 있느니 차라리 혼자가 낫다</h3>
+							<p>논리주의자형 사람의 헌신적인 성격은 매우 긍정적인 자질로 이들로 하여금 많은 것을 이루게 합니다. 하지만 이는 동시에 이들의 약점이 되기도 하는데, 간혹 비양심적인 사람들은 이러한 이들의 약점을 이용하기도 합니다. 안전하며 안정된 삶을 추구하는 논리주의자형 사람은 일이 원활하게 돌아갈 수 있도록 맡은 바 임무를 충실히 수행합니다. 뒤치다꺼리를 마다치 않는 이들의 성향을 아는 동료나 주위 사람들은 간혹 이들에게 책임을 전가하는 경우가 있습니다. 더욱이 개인적인 견해가 아닌 사실만을 얘기하고자 하는 이들의 성향 때문에 정확히 사실을 밝혀 낼 증거가 충분히 모일 때까지 시간이 오래 걸리기도 합니다.</p>
+							<p>이들은 그들 자신 또한 챙기고 돌보아야 할 필요가 있음을 잊지 말아야 합니다. 갈수록 기대기만 하는 이들에게 언제고 싫은 내색 한번 않는 논리주의자형 사람들이기 때문에 일단 감정의 골이 쌓여 터진 후 돌아오기 늦어버리는 상황을 초래하기 전 안정과 효율성 추구를 위한 완강하고 헌신적인 이들의 성격을 활용하여 장기간 목표를 달성하기 위한 절충점을 찾아야 합니다. 활기차고 명료하며 안정된 삶을 추구하는 이들의 성향을 진심으로 이해하고 보듬으며 이들이 가진 단점을 보완해주는 동료나 배우자를 만난다면, 이들은 안정을 추구하는 자신의 성향으로 하여금 일을 순리대로 잘 돌아가게 하는 데 지대한 역할을 하고 있다는 생각에 큰 만족감을 느낄 것입니다.</p>
+						</Box>
+					</Modal>
+				</Mbti>
 				
 				<TechBox className="wowo">
 					<Title>기술 선호도</Title>
