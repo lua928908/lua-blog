@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip, message } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Row, Col, Tooltip, message, Button, Drawer } from 'antd';
 import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -15,10 +15,12 @@ const RootWrap = styled.div`
 	background-color: #212424;
 
 	& > div {
+		position: relative;
 		margin: 0 auto;
 		padding: 64px 0 70px;
 		max-width: 1200px;
 		width: 100%;
+		height: 100vh;
 	}
 
 	& Header {
@@ -49,8 +51,24 @@ const RootWrap = styled.div`
 	}
 `;
 const SideBar = styled(Sider)`
+	position: fixed;
 	height: calc(100vh - (64px + 69px));
-	background-color: red;
+
+	& .investigation {
+		position: absolute;
+    	bottom: 30px;
+    	left: 50%;
+    	transform: translate(-50%,0);
+	}
+`;
+const ViewSection = styled(Layout)`
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-left: 200px;
+	padding: 67px 24px 70px;
+	width: calc(100% - 200px);
+	height: 100%;
 `;
 const SkillList = styled.ul`
 	display: inline-block;
@@ -79,6 +97,7 @@ const SkillList = styled.ul`
 
 
 const AppLayout = ({children}) => {
+	const [drawerVisible, setDrawerVisible] = useState(false);
 	const urlPath = useRef('');
 	const userInfo = useSelector(state => state.user.userInfo);
 	const dispatch = useDispatch();
@@ -88,6 +107,16 @@ const AppLayout = ({children}) => {
 		dispatch({
 			type: LOGOUT_REQUEST,
 		});
+	};
+	const openDrawer = () => {
+		setDrawerVisible(true);
+	};
+	const closeDrawer = () => {
+		setDrawerVisible(false);
+	};
+	const drawerSubmit = () => {
+		console.log('submit !!!');
+		setDrawerVisible(false);
 	};
 
 	useEffect(() => {
@@ -143,18 +172,36 @@ const AppLayout = ({children}) => {
 									<Menu.Item key="book"><Link href="/book"><a>Book</a></Link></Menu.Item>
 								</SubMenu>
 							</Menu>
+
+							<Button className="investigation" onClick={openDrawer}>의견 내기 <Icon type="book" /></Button>
 						</SideBar>
-						<Layout style={{ padding: '0 24px 24px' }}>
+						<ViewSection>
 							<Breadcrumb style={{ margin: '16px 0' }}>
 								<Breadcrumb.Item>{urlPath.current}</Breadcrumb.Item>
 								<Breadcrumb.Item>List</Breadcrumb.Item>
 								<Breadcrumb.Item>App</Breadcrumb.Item>
 							</Breadcrumb>
-							<Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 250 }}>
+							<Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 250, overflowY: 'auto' }}>
 								{children}
 							</Content>
-						</Layout>
+						</ViewSection>
 					</Layout>
+
+					<Drawer
+						className="investigation-drawer"
+						title="Lua에게 의겨남기기"
+						width={520}
+						placement="right"
+						closable={false}
+						onClose={closeDrawer}
+						visible={drawerVisible}
+					>
+						<p>Some contents...</p>
+						<p>Some contents...</p>
+						<p>Some contents...</p>
+						<Button onClick={drawerSubmit}>Submit</Button>
+        			</Drawer>
+
 					<Footer>
 						사용된 개발스택
 						<SkillList>

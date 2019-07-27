@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Progress, Tooltip, Row, Col, message, Rate, Collapse, Button, Timeline, Icon, Modal } from 'antd';
+import { Progress, Tooltip, Row, Col, message, Collapse, Button, Timeline, Icon, Modal } from 'antd';
 const { Panel } = Collapse;
 import styled from 'styled-components';
 
 // style
 const Wrap = styled.div`
+	overflow-y: auto;
+	word-break: keep-all;
+
 	& SkilBox:first-child {
 		margin-top: 0;
 	}
-`;
-const Title = styled.h2`
-	font-weight: 500;
-	font-size: 20px;
-	color: #1b1b1b;
 `;
 const QuestionBox = styled.div`
 	& Collapse {
@@ -25,11 +23,8 @@ const QuestionBox = styled.div`
 		width: 100%;
 	}
 `;
-const History = styled.div`
-	margin-top: 80px;
-`;
 const Mbti = styled.div`
-	margin: 0 -24px;
+	margin: 80px -24px 0;
 	padding: 30px 24px 80px;
 	background-color: #212424;
 	color: #e1e1e1;
@@ -69,35 +64,81 @@ const Box = styled.div`
 		margin: 10px 0 0 0;
 	}
 `;
-const TechBox = styled.div`
-	margin-top: 60px;
-`;
-const SkilBox = styled.div`
- 	margin-top: 30px;
-	 text-align: center;
-	& p {
-		text-align: center;
+const History = styled.div`
+	margin-top: 80px;
+
+	& .timeline-item {
+		font-weight: 500;
+		line-height: 1.8;
 	}
 `;
-const RateWrap = styled.div`
+const TechBox = styled.div`
 	margin-top: 60px;
+
+	& .box {
+		margin-top: 30px;
+	 	text-align: center;
+		& p {
+			text-align: center;
+		}
+	}
+`;
+const MottoWrap = styled.div`
+	margin: 80px -24px 0;
+	padding: 60px 0;
+	color: #e1e1e1;
+	font-size: 20px;
+	background-color: #212424;
+
+	& h2 {
+		position: relative;
+		margin-left: 90px;
+		font-size: 22px;
+		color: #e1e1e1;;
+	}
+	& h2:after {
+		content: "";
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 100px;
+		height: 1px;
+		background-color: #fff;
+	}
+
+	& .motto {
+		margin-top: 80px;
+		font-size: 20px;
+		text-align: center;
+		line-height: 2.0;
+	}
+	& .author {
+		margin-right: 230px;
+		font-size: 17px;
+		text-align: right;
+		line-height: 1.8;
+	}
 `;
 
+// style - common
+const Title = styled.h2`
+	font-weight: 500;
+	font-size: 20px;
+	color: #1b1b1b;
+`;
 const ColorGreen = styled.span`
 	font-weight: 500;
 	font-size: 16px;
 	color: #008000;
 `;
 
+
+
+
 const Introduce = () => {
-	const [rateState, setRateState] = useState(3);
 	const [mbtiVisible, setMbtiVisible] = useState(false);
-	const desc = ['별로에요', '부족해요', '무난해요', '좋아요', '훌륭해요'];
 
 	//method
-	const handleChange = (value) => {
-		setRateState(value);
-	};
 	const showMbtiDescription = () => {
 		setMbtiVisible(true);
 	};
@@ -187,48 +228,6 @@ const Introduce = () => {
 					</Collapse>
 				</QuestionBox>
 
-				<History>
-					<Title>TIME LINE</Title>
-					<Timeline mode="alternate">
-						<Timeline.Item>1992.01.17 탄생</Timeline.Item>
-						<Timeline.Item color="red">2002 생에 첫 RPG 게임 라그하임에 중독</Timeline.Item>
-						<Timeline.Item color="green">2002.07 생에 첫 강아지, 요크셔테리어 초롱이와의 만남</Timeline.Item>
-						<Timeline.Item>2004.02 포곡초등학교 졸업</Timeline.Item>
-						<Timeline.Item>2007.2 영문중학교 졸업</Timeline.Item>
-						<Timeline.Item color="green">2007.04 <i style={{ color: '#ff6347', fontWeight: '500' }}>True Love</i>에 눈을 뜸</Timeline.Item>
-						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
-							Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-							laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-							beatae vitae dicta sunt explicabo.
-						</Timeline.Item>
-						<Timeline.Item color="green">2010.02 용인바이오고등학교 졸업</Timeline.Item>
-						<Timeline.Item color="red">2011.12.06 군입대</Timeline.Item>
-						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
-							군대안에서 UCLA대학, 고려대, 서강대 등등 다양한 사람들과 이야기를 나누고 여러 사람들의 성장배경을 접하면서
-							공부에 대한 관심이 생김
-						</Timeline.Item>
-						<Timeline.Item color="green">2013.09.05 김연아의 24번째 생일날 전역</Timeline.Item>
-						<Timeline.Item>2014.02 에버랜드 공연팀 입사</Timeline.Item>
-						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
-							소속된 동물원 공연팀의 오너분이 젊은시절 와일드한 성격이였는데 많이 소프트해졌다고함 가끔씩 중요한 순간에 카리스마가 나옴
-							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움
-						</Timeline.Item>
-						<Timeline.Item>2015.03 한국IT전문학교 웹디자인과 입학</Timeline.Item>
-						<Timeline.Item>코딩을 경험한 이후 개발자 취업준비</Timeline.Item>
-						<Timeline.Item>2017.02 웹 에이전시 (주)스튜디오블룸 입사</Timeline.Item>
-						<Timeline.Item dot={<Icon type="clock-circle-o" />}>
-							<Tooltip title="음, 너무멋있고">
-								<ColorGreen>
-									<b>
-									나는 세상을 강자와 약자, 성공과 실패로 나누지 않는다. 나는 세상을 배우는 사람과 배우지 않는 사람으로 나눈다.
-									<p style={{marginTop: '10px'}}>- 벤자민 바버 -</p>
-									</b>
-								</ColorGreen>
-							</Tooltip>
-						</Timeline.Item>
-					</Timeline>
-				</History>
-
 				<Mbti>
 					<Title>MBTI - 성격검사</Title>
 					<img src="/MBTI.jpeg" alt="asdf"/>
@@ -261,11 +260,43 @@ const Introduce = () => {
 						</Box>
 					</Modal>
 				</Mbti>
+
+				<History>
+					<Title>TIME LINE</Title>
+					<Timeline mode="alternate">
+						<Timeline.Item className="timeline-item">1992.01.17 탄생</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="red">2002 생에 첫 RPG 게임 라그하임에 중독</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2002.07 생에 첫 강아지, 요크셔테리어 '초롱이'와의 만남</Timeline.Item>
+						<Timeline.Item className="timeline-item">2004.02 포곡초등학교 졸업</Timeline.Item>
+						<Timeline.Item className="timeline-item">2007.2 영문중학교 졸업</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2007.04 <i style={{ color: '#ff6347', fontWeight: '500' }}>True Love</i>에 눈을 뜸</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="red" dot={<Icon type="clock-circle-o" />}>
+							공부로 스트레스 받아본적이 없음 시험날은 명절, 학교 빨리끝나는 날
+						</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2010.02 용인바이오고등학교 졸업</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="red">2011.12 군입대</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2012.04 휴가를 나와보니 현재의 반려견 '초코'와 만남</Timeline.Item>
+						<Timeline.Item className="timeline-item" dot={<Icon type="clock-circle-o" />}>
+							군대안에서 UCLA대학, 고려대, 서강대 등등 다양한 사람들과 이야기를 나누고 여러 사람들의 성장배경을 접하면서
+							공부에 대한 관심이 생김, 웹을 공부해야겠다고 생각
+						</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2013.09.05 김연아의 24번째 생일날 전역</Timeline.Item>
+						<Timeline.Item className="timeline-item">2014.02 에버랜드 공연팀 입사</Timeline.Item>
+						<Timeline.Item className="timeline-item" dot={<Icon type="clock-circle-o" />}>
+							소속된 동물원 공연팀의 오너분이 젊은시절 와일드한 성격이였는데 많이 소프트해졌다고함 가끔씩 중요한 순간에 카리스마가 나옴
+							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움
+						</Timeline.Item>
+						<Timeline.Item className="timeline-item">2015.03 한국IT전문학교 웹디자인과 입학</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">코딩을 경험한 이후 개발자 취업준비</Timeline.Item>
+						<Timeline.Item className="timeline-item">2017.02 웹 에이전시 (주)스튜디오블룸 입사</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green" dot={<Icon type="clock-circle-o" />}>2019.04 (주)스튜디오블룸 퇴사</Timeline.Item>
+					</Timeline>
+				</History>
 				
 				<TechBox className="wowo">
 					<Title>기술 선호도</Title>
 					<Row>
-						<SkilBox className="box">
+						<div className="box">
 							<Col xl={4} md={4} xl={4}>
 								<p><b>React</b></p>
 								<Progress type='circle' percent={91} strokeColor={'black'}/>
@@ -290,26 +321,26 @@ const Introduce = () => {
 								<p><b>MongoDB</b></p>
 								<Progress type={'circle'} percent={34} strokeColor={'blue'}/>
 							</Col>
-						</SkilBox>
+						</div>
 					</Row>
 					<Row>
-						<SkilBox className="box">
+						<div className="box">
 							<Col xl={4} md={4} xl={4}>
 								<p><b>D3</b></p>
 								<Progress type={'circle'} percent={86} strokeColor={'brown'}/>
 							</Col>
-						</SkilBox>
+						</div>
 					</Row>
 				</TechBox>
 
-				<RateWrap>
-					<Title>Lua의 첫인상 평가하기</Title>
-					<span>
-						<Rate tooltips={desc} onChange={handleChange} value={rateState} />
-						{rateState ? <span className="ant-rate-text">{desc[rateState - 1]}</span> : ''}
-					</span>
-					<Button type="primary">등록</Button>
-				</RateWrap>
+				<MottoWrap>
+					<h2>Motto</h2>
+					<p className="motto">
+						나는 세상을 강자와 약자, 성공과 실패로 나누지 않는다.<br/>
+						나는 세상을 배우는 사람과 배우지 않는 사람으로 나눈다.
+					</p>
+					<p className="author">- 벤자민 바버 -</p>
+				</MottoWrap>
 			</Wrap>
 		</>
 	);
