@@ -35,7 +35,7 @@ function* watchLogin(){
 
 // 로그아웃
 function logoutAPI(){
-	return axios.get('/user/logout', {}, {
+	return axios.post('/user/logout', {}, {
 		withCredentials: true,
 	});
 }

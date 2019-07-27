@@ -24,9 +24,10 @@ const RootWrap = styled.div`
 	& Header {
 		position: fixed;
 		top: 0;
-		left: 0;
+		left: 50%;
 		max-width: 1200px;
 		width: 100%;
+		transform: translate(-50%, 0);
 		z-index: 100;
 	}
 
@@ -38,11 +39,12 @@ const RootWrap = styled.div`
 	& Footer {
 		position: fixed;
 		bottom: 0;
-		left: 0;
+		left: 50%;
 		max-width: 1200px;
 		width: 100%;
 		background-color: #001529;
 		color: #fff;
+		transform: translate(-50%, 0);
 		z-index: 100;
 	}
 `;

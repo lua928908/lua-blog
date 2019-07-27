@@ -82,7 +82,6 @@ const reducer = (state = initialState, action) => {
 				break;
 			}
 			case CHECK_LOGIN_SUCCESS: {
-				console.log('체크로그인 석세스', action.data);
 				draft.userInfo = action.data;
 				break;
 			}

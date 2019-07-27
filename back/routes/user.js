@@ -32,7 +32,7 @@ router.post('/login', (req, res, next) => {
 	})(req, res, next);
 })
 // 로그아웃
-router.get('/logout', isNotLoggedIn, (req, res, next) => {
+router.post('/logout', (req, res, next) => {
 	req.logout();
 	req.session.destroy();
 	res.send('로그아웃');
