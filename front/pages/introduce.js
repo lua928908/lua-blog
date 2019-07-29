@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 // style
 const Wrap = styled.div`
-	overflow-y: auto;
 	word-break: keep-all;
 
 	& SkilBox:first-child {

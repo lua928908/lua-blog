@@ -7,6 +7,8 @@ import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
+import UserCommentForm from './UserCommentForm';
+
 import { LOGOUT_REQUEST } from '../reducers/user';
 
 // style
@@ -97,7 +99,7 @@ const SkillList = styled.ul`
 
 
 const AppLayout = ({children}) => {
-	const [drawerVisible, setDrawerVisible] = useState(false);
+	const [drawerVisible, setDrawerVisible] = useState(true);
 	const urlPath = useRef('');
 	const userInfo = useSelector(state => state.user.userInfo);
 	const dispatch = useDispatch();
@@ -112,10 +114,6 @@ const AppLayout = ({children}) => {
 		setDrawerVisible(true);
 	};
 	const closeDrawer = () => {
-		setDrawerVisible(false);
-	};
-	const drawerSubmit = () => {
-		console.log('submit !!!');
 		setDrawerVisible(false);
 	};
 
@@ -186,21 +184,18 @@ const AppLayout = ({children}) => {
 							</Content>
 						</ViewSection>
 					</Layout>
-
+					
 					<Drawer
 						className="investigation-drawer"
-						title="Lua에게 의겨남기기"
+						title="여러분의 의견을 공유해 주세요."
 						width={520}
 						placement="right"
 						closable={false}
 						onClose={closeDrawer}
 						visible={drawerVisible}
 					>
-						<p>Some contents...</p>
-						<p>Some contents...</p>
-						<p>Some contents...</p>
-						<Button onClick={drawerSubmit}>Submit</Button>
-        			</Drawer>
+						<UserCommentForm setDrawerVisible={setDrawerVisible} />
+					</Drawer>
 
 					<Footer>
 						사용된 개발스택
