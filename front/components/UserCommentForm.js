@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Rate, Button, Input, Radio, Slider, Icon, Row, Col } from 'antd';
+import React, { useState, useRef } from 'react';
+import { Rate, Button, Input, Radio, Slider, Icon, Row, Col, Select } from 'antd';
 import styled from 'styled-components';
 
-const {TextArea} = Input;
+const { TextArea } = Input;
+const { Option } = Select;
 
 // style
 const Wrap = styled.div`
@@ -10,6 +11,16 @@ const Wrap = styled.div`
 
 	& section {
 		margin-bottom: 40px;
+	}
+
+	& .email {
+		margin-top: 20px;
+	}
+	& .tech-wrap {
+		margin-top: 20px;
+	}
+	& .book-wrap {
+		margin-top: 20px;
 	}
 `;
 const Title = styled.h2`
@@ -26,11 +37,19 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 	const [contentScore, setContentScore] = useState(0);
 	const [speedScore, setSpeedScore] = useState(0);
 	const desc = ['별로에요', '부족해요', '무난해요', '좋아요', '훌륭해요'];
+	const techList = useRef([]);
+	const bookList = useRef([]);
 
 	//method
 	const genderChange = (e) => {
 		setGender(e.target.value);
 	};
+	const addTech = (value) => {
+		techList.current = value;
+	}
+	const addBook = (value) => {
+		bookList.current = value;
+	}
 	const rateChange = value => {
 		setRateState(value);
 	};
@@ -56,10 +75,25 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 			<Wrap>
 				<section className="user-info">
 					<Title>당신의 정보를 알려주세요.</Title>
-					<Radio.Group onChange={genderChange} value={gender}>
-						<Radio value='남자'>남자</Radio>
-						<Radio value='여자'>여자</Radio>
-					</Radio.Group>
+					<div>
+						<Radio.Group onChange={genderChange} value={gender}>
+							<Radio value='남자'>남자</Radio>
+							<Radio value='여자'>여자</Radio>
+						</Radio.Group>
+					</div>
+					<div className="email">
+						<Input placeholder="e-mail" />
+					</div>
+					<div className="tech-wrap">
+						추천하는 기술이 있나요?
+						<Select mode="tags" style={{ width: '100%' }} onChange={addTech} tokenSeparators={[',']}>
+  						</Select>
+					</div>
+					<div className="book-wrap">
+						추천하는 책이 있나요?
+						<Select mode="tags" style={{ width: '100%' }} onChange={addBook} tokenSeparators={[',']}>
+  						</Select>
+					</div>
 				</section>
 				
 				<section>
