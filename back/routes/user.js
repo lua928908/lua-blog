@@ -78,4 +78,28 @@ router.get('/', isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 사용자 피드백 등록
+router.post('/feedback', async (req, res, next) => {
+	console.log('받은데이터 = ', req.body);
+	try{
+		const newFeedback = await db.Feedback.create({
+			gender: req.body.gender,
+			email: req.body.email,
+			rateState: req.body.rateState,
+			designScore: req.body.designScore,
+			uxScore: req.body.uxScore,
+			contentScore: req.body.contentScore,
+			speedScore: req.body.speedScore,
+			techList: req.body.techList,
+			bookList: req.body.bookList,
+			userText: req.body.techList,
+		});
+		console.log('뉴 피드백 = ', newFeedback);
+		return res.json(newFeedback);
+	}catch(e){
+		console.error(e);
+		next(e);
+	}
+});
+
 module.exports = router;

@@ -89,33 +89,10 @@ function* watchLoadSinglePost(){
 	yield takeLatest(LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 };
 
-// 사용자 피드백 등록
-function userFeedbackAPI(postData){
-	return axios.post('/feedback', postData);
-};
-function* userFeedback(action){
-	try{
-		const result = yield call(userFeedbackAPI, action.data);
-		yield put({
-			type: USER_FEEDBACK_SUCCESS,
-			data: result.data,
-		});
-	}catch(e){
-		console.error(e);
-		yield put({
-			type: USER_FEEDBACK_FAILURE,
-			error: e,
-		});
-	}
-};
-function* watchUserFeedback(){
-	yield takeLatest(USER_FEEDBACK_REQUEST, userFeedback);
-};
-
 export default function* postSaga() {
   yield all([
 	fork(watchAddPost),
     fork(watchLoadPost),
-    fork(watchUserFeedback),
+    fork(watchLoadSinglePost),
   ]);
 }

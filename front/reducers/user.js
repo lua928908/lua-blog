@@ -29,7 +29,9 @@ export const CHECK_LOGIN_REQUEST = 'CHECK_LOGIN_REQUEST';
 export const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 export const CHECK_LOGIN_FAILURE = 'CHECK_LOGIN_FAILURE';
 
-
+export const USER_FEEDBACK_REQUEST = 'USER_FEEDBACK_REQUEST';
+export const USER_FEEDBACK_SUCCESS = 'USER_FEEDBACK_SUCCESS';
+export const USER_FEEDBACK_FAILURE = 'USER_FEEDBACK_FAILURE';
 
 
 const reducer = (state = initialState, action) => {
@@ -87,6 +89,16 @@ const reducer = (state = initialState, action) => {
 			}
 			case CHECK_LOGIN_FAILURE: {
 				draft.checkLoginErrorReason = action.error.response.data;
+				break;
+			}
+			case USER_FEEDBACK_REQUEST: {
+				break;
+			}
+			case USER_FEEDBACK_SUCCESS: {
+				break;
+			}
+			case USER_FEEDBACK_FAILURE: {
+				draft.userFeedbackErrorReason = action.error;
 				break;
 			}
 			default: { // default 없으면 error

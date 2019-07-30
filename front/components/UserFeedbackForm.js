@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rate, Button, Input, Radio, Slider, Icon, Row, Col, Select } from 'antd';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const { TextArea } = Input;
 const { Option } = Select;
 
-import { USER_FEEDBACK_REQUEST } from '../reducers/post';
+import { USER_FEEDBACK_REQUEST } from '../reducers/user';
 
 // style
 const Wrap = styled.div`
@@ -32,7 +32,7 @@ const Title = styled.h2`
 	font-size: 22px;
 `;
 
-const UserFeedbackForm = ({ setDrawerVisible }) => {
+const UserFeedbackForm = memo(({ setDrawerVisible }) => {
 	const [gender, setGender] = useState('');
 	const [email, setEmail] = useState('');
 	const [rateState, setRateState] = useState(3);
@@ -54,10 +54,32 @@ const UserFeedbackForm = ({ setDrawerVisible }) => {
 		setEmail(e.target.value);
 	};
 	const addTech = (value) => {
-		techList.current = value;
+		// sequelize에 array가 postgresSQL만 지원, string으로 변환
+		let transString = '';
+		let len = value.length;
+		value.map((v, i) =>{
+			if( len === i+1 ){
+				return transString += v;
+			}else {
+				return transString += v + ',';
+			}
+		})
+		techList.current = transString;
+		console.log('기술리스트 = ',techList.current);
 	}
 	const addBook = (value) => {
-		bookList.current = value;
+		// sequelize에 array가 postgresSQL만 지원, string으로 변환
+		let transString = '';
+		let len = value.length;
+		value.map((v, i) =>{
+			if( len === i+1 ){
+				return transString += v;
+			}else{
+				return transString += v + ',';
+			}
+		})
+		bookList.current = transString;
+		console.log('북리스트 = ', bookList.current);
 	}
 	const rateChange = (value) => {
 		setRateState(value);
@@ -75,8 +97,8 @@ const UserFeedbackForm = ({ setDrawerVisible }) => {
 		setSpeedScore(value);
 	};
 	const userTextChange = (e) => {
-		console.log(e.target.value);
 		setUserText(e.target.value);
+		console.log('userText = ', userText);
 	}
 	const drawerSubmit = () => {
 		dispatch({
@@ -106,6 +128,7 @@ const UserFeedbackForm = ({ setDrawerVisible }) => {
 		setSpeedScore(0);
 		techList.current = [];
 		bookList.current = [];
+		setUserText('');
 	};
 	
 
@@ -179,11 +202,11 @@ const UserFeedbackForm = ({ setDrawerVisible }) => {
 				<section className="rate">
 					<Title>블로그 평점주기</Title>
 					<span>
-					<p>
-						전반적인 블로그의 내용, 디자인, 사용편의성 등등 이용하기에 어떤가요?
-					</p>
-					<Rate tooltips={desc} onChange={rateChange} value={rateState} />
-					{rateState ? <span className="ant-rate-text">{desc[rateState - 1]}</span> : ''}
+						<p>
+							전반적인 블로그의 내용, 디자인, 사용편의성 등등 이용하기에 어떤가요?
+						</p>
+						<Rate tooltips={desc} onChange={rateChange} value={rateState} />
+						{rateState ? <span className="ant-rate-text">{desc[rateState - 1]}</span> : ''}
 					</span>
 				</section>
 
@@ -191,6 +214,6 @@ const UserFeedbackForm = ({ setDrawerVisible }) => {
 			</Wrap>
 		</>
 	);
-};
+});
 
 export default UserFeedbackForm;

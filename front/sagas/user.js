@@ -1,10 +1,11 @@
-import { all, call, fork, put, takeEvery, delay } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery, delay, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import {
 	LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
 	SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
 	LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
 	CHECK_LOGIN_REQUEST, CHECK_LOGIN_SUCCESS, CHECK_LOGIN_FAILURE,
+	USER_FEEDBACK_REQUEST, USER_FEEDBACK_SUCCESS, USER_FEEDBACK_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -104,11 +105,35 @@ function* watchCheckLogin(){
 	yield takeEvery(CHECK_LOGIN_REQUEST, checkLogin);
 }
 
+// 사용자 피드백 등록
+function userFeedbackAPI(postData){
+	return axios.post('/user/feedback', postData);
+};
+function* userFeedback(action){
+	try{
+		const result = yield call(userFeedbackAPI, action.data);
+		yield put({
+			type: USER_FEEDBACK_SUCCESS,
+			data: result.data,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: USER_FEEDBACK_FAILURE,
+			error: e,
+		});
+	}
+};
+function* watchUserFeedback(){
+	yield takeEvery(USER_FEEDBACK_REQUEST, userFeedback);
+};
+
 export default function* postSaga() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
     fork(watchSignup),
     fork(watchCheckLogin),
+    fork(watchUserFeedback),
   ]);
 }
