@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Rate, Button, Input, Radio, Slider, Icon, Row, Col, Select } from 'antd';
 import styled from 'styled-components';
 
 const { TextArea } = Input;
 const { Option } = Select;
+
+import { USER_FEEDBACK_REQUEST } from '../reducers/post';
 
 // style
 const Wrap = styled.div`
@@ -29,20 +32,26 @@ const Title = styled.h2`
 	font-size: 22px;
 `;
 
-const UserCommentForm = ({ setDrawerVisible }) => {
+const UserFeedbackForm = ({ setDrawerVisible }) => {
 	const [gender, setGender] = useState('');
+	const [email, setEmail] = useState('');
 	const [rateState, setRateState] = useState(3);
 	const [designScore, setDesignScore] = useState(0);
 	const [uxScore, setUxScore] = useState(0);
 	const [contentScore, setContentScore] = useState(0);
 	const [speedScore, setSpeedScore] = useState(0);
+	const [userText, setUserText] = useState('');
 	const desc = ['별로에요', '부족해요', '무난해요', '좋아요', '훌륭해요'];
 	const techList = useRef([]);
 	const bookList = useRef([]);
+	const dispatch = useDispatch();
 
 	//method
 	const genderChange = (e) => {
 		setGender(e.target.value);
+	};
+	const emailChange = (e) => {
+		setEmail(e.target.value);
 	};
 	const addTech = (value) => {
 		techList.current = value;
@@ -50,23 +59,53 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 	const addBook = (value) => {
 		bookList.current = value;
 	}
-	const rateChange = value => {
+	const rateChange = (value) => {
 		setRateState(value);
 	};
-	const designChange = value => {
+	const designChange = (value) => {
 		setDesignScore(value);
 	};
-	const uxChange = value => {
+	const uxChange = (value) => {
 		setUxScore(value);
 	};
-	const contentChange = value => {
+	const contentChange = (value) => {
 		setContentScore(value);
 	};
-	const speedChange = value => {
+	const speedChange = (value) => {
 		setSpeedScore(value);
 	};
+	const userTextChange = (e) => {
+		console.log(e.target.value);
+		setUserText(e.target.value);
+	}
 	const drawerSubmit = () => {
+		dispatch({
+			type: USER_FEEDBACK_REQUEST,
+			data: {
+				gender,
+				email,
+				rateState,
+				designScore,
+				uxScore,
+				contentScore,
+				speedScore,
+				techList: techList.current,
+				bookList: bookList.current,
+				userText,
+			}
+		});
+		
+		// form init
 		setDrawerVisible(false);
+		setGender('');
+		setEmail('');
+		setRateState(3);
+		setDesignScore(0);
+		setUxScore(0);
+		setContentScore(0);
+		setSpeedScore(0);
+		techList.current = [];
+		bookList.current = [];
 	};
 	
 
@@ -82,7 +121,7 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 						</Radio.Group>
 					</div>
 					<div className="email">
-						<Input placeholder="e-mail" />
+						<Input value={email} type="email" onChange={emailChange} placeholder="e-mail" />
 					</div>
 					<div className="tech-wrap">
 						추천하는 기술이 있나요?
@@ -134,7 +173,7 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 
 				<section>
 					<Title>제안하고 싶은 기능이 있으신가요?</Title>
-					<TextArea rows={6}></TextArea>
+					<TextArea value={userText} onChange={userTextChange} rows={6}></TextArea>
 				</section>
 
 				<section className="rate">
@@ -154,4 +193,4 @@ const UserCommentForm = ({ setDrawerVisible }) => {
 	);
 };
 
-export default UserCommentForm;
+export default UserFeedbackForm;

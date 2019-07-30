@@ -5,6 +5,7 @@ export const initialState = {
 	showPosts: [], // 게시글 목록
 	imagePaths: [], // 미리보기 이미지 경로
 	singlePost: '', // 하나의 게시글
+	userFeedbackErrorReason: ''// 유저 피드백 등록 에러
 };
 
 const dummyData = [
@@ -63,6 +64,10 @@ export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
 export const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
 
+export const USER_FEEDBACK_REQUEST = 'USER_FEEDBACK_REQUEST';
+export const USER_FEEDBACK_SUCCESS = 'USER_FEEDBACK_SUCCESS';
+export const USER_FEEDBACK_FAILURE = 'USER_FEEDBACK_FAILURE';
+
 
 export default (state = initialState, action) => {
 	return produce(state, (draft) => {
@@ -95,6 +100,16 @@ export default (state = initialState, action) => {
 				break;
 			}
 			case LOAD_SINGLE_POST_FAILURE: {
+				break;
+			}
+			case USER_FEEDBACK_REQUEST: {
+				break;
+			}
+			case USER_FEEDBACK_SUCCESS: {
+				break;
+			}
+			case USER_FEEDBACK_FAILURE: {
+				draft.userFeedbackErrorReason = action.error
 				break;
 			}
 			default: {

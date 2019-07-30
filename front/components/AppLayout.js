@@ -7,7 +7,7 @@ import Router from 'next/router';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-import UserCommentForm from './UserCommentForm';
+import UserFeedbackForm from './UserFeedbackForm';
 
 import { LOGOUT_REQUEST } from '../reducers/user';
 
@@ -194,7 +194,7 @@ const AppLayout = ({children}) => {
 						onClose={closeDrawer}
 						visible={drawerVisible}
 					>
-						<UserCommentForm setDrawerVisible={setDrawerVisible} />
+						<UserFeedbackForm setDrawerVisible={setDrawerVisible} />
 					</Drawer>
 
 					<Footer>
