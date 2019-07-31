@@ -98,7 +98,6 @@ const UserFeedbackForm = memo(({ setDrawerVisible }) => {
 	};
 	const userTextChange = (e) => {
 		setUserText(e.target.value);
-		console.log('userText = ', userText);
 	}
 	const drawerSubmit = () => {
 		dispatch({

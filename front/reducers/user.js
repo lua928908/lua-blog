@@ -95,9 +95,11 @@ const reducer = (state = initialState, action) => {
 				break;
 			}
 			case USER_FEEDBACK_SUCCESS: {
+				message.success('피드백 등록이 완료되었습니다.');
 				break;
 			}
 			case USER_FEEDBACK_FAILURE: {
+				message.error('오류가 발생 하였습니다.');
 				draft.userFeedbackErrorReason = action.error;
 				break;
 			}
