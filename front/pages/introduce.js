@@ -3,6 +3,14 @@ import { Progress, Tooltip, Row, Col, message, Collapse, Button, Timeline, Icon,
 const { Panel } = Collapse;
 import styled from 'styled-components';
 
+/*
+	chart를 사용할때 'document' of undefined 라는 오류발생,
+	SSR 방지를 위해 next/dynamic이 필요함
+*/
+import dynamic from 'next/dynamic'
+const DynamicTechChart = dynamic(() => import('../components/chart/TechChart'));
+
+
 // style
 const Wrap = styled.div`
 	word-break: keep-all;
@@ -295,42 +303,7 @@ const Introduce = () => {
 				
 				<TechBox className="wowo">
 					<Title>기술 선호도</Title>
-					<Row>
-						<div className="box">
-							<Col xl={4} md={4} xl={4}>
-								<p><b>React</b></p>
-								<Progress type='circle' percent={91} strokeColor={'black'}/>
-							</Col>
-							<Col xl={4} md={4} xl={4}>
-								<p><b>Angular</b></p>
-								<Progress type='circle' percent={8}/>
-							</Col>
-							<Col xl={4} md={4} xl={4}>
-								<p><b>Vue</b></p>
-								<Progress type={'circle'} percent={50} strokeColor={'pink'}/>
-							</Col>
-							<Col xl={4} md={4} xl={4}>
-								<p><b>Node</b></p>
-								<Progress type={'circle'} percent={88} strokeColor={'green'}/>
-							</Col>
-							<Col xl={4} md={4} xl={4}>
-								<p><b>Mysql</b></p>
-								<Progress type={'circle'} percent={81} strokeColor={'orange'}/>
-							</Col>
-							<Col xl={4} md={4} xl={4}>
-								<p><b>MongoDB</b></p>
-								<Progress type={'circle'} percent={34} strokeColor={'blue'}/>
-							</Col>
-						</div>
-					</Row>
-					<Row>
-						<div className="box">
-							<Col xl={4} md={4} xl={4}>
-								<p><b>D3</b></p>
-								<Progress type={'circle'} percent={86} strokeColor={'brown'}/>
-							</Col>
-						</div>
-					</Row>
+					<DynamicTechChart />
 				</TechBox>
 
 				<MottoWrap>

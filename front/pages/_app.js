@@ -38,7 +38,7 @@ const luaBlog = ({ Component, store, pageProps }) => {
 							{ rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.min.css' },
 						]}
 						script={[
-							{ src: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.min.js' }
+							{ src: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.min.js' },
 						]}
 					/>
 
