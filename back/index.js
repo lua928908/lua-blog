@@ -12,6 +12,7 @@ const prod = process.env.NODE_ENV === 'production';
 const passportConfig = require('./passport/index');
 const userRouter = require('./routes/user');
 const portfolioRouter = require('./routes/portfolio');
+const javascriptRouter = require('./routes/javascript');
 
 dotenv.config();
 db.sequelize.sync();
@@ -52,6 +53,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/user', userRouter)
 app.use('/api/portfolio', portfolioRouter)
+app.use('/api/javascript', javascriptRouter)
 app.get('/', (req, res) => {
 	res.send('API서버 동작중');
 });

@@ -99,7 +99,7 @@ const SkillList = styled.ul`
 
 
 const AppLayout = ({children}) => {
-	const [drawerVisible, setDrawerVisible] = useState(true);
+	const [drawerVisible, setDrawerVisible] = useState(false);
 	const urlPath = useRef('');
 	const userInfo = useSelector(state => state.user.userInfo);
 	const dispatch = useDispatch();

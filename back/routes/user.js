@@ -58,7 +58,6 @@ router.post('/', async (req, res, next) => {
 			phone: phoneNumber,
 			website: req.body.website || null,
 		});
-		console.log(newUser);
 		return res.status(200).json(newUser);
 	} catch (e) {
 		console.error(e);

@@ -65,7 +65,6 @@ const UserFeedbackForm = memo(({ setDrawerVisible }) => {
 			}
 		})
 		techList.current = transString;
-		console.log('기술리스트 = ',techList.current);
 	}
 	const addBook = (value) => {
 		// sequelize에 array가 postgresSQL만 지원, string으로 변환
@@ -79,7 +78,6 @@ const UserFeedbackForm = memo(({ setDrawerVisible }) => {
 			}
 		})
 		bookList.current = transString;
-		console.log('북리스트 = ', bookList.current);
 	}
 	const rateChange = (value) => {
 		setRateState(value);

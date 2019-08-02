@@ -279,14 +279,15 @@ const Introduce = () => {
 							군대안에서 UCLA대학, 고려대, 서강대 등등 다양한 사람들과 이야기를 나누고 여러 사람들의 성장배경을 접하면서
 							공부에 대한 관심이 생김, 웹을 공부해야겠다고 생각
 						</Timeline.Item>
-						<Timeline.Item className="timeline-item" color="green">2013.09.05 김연아의 24번째 생일날 전역</Timeline.Item>
-						<Timeline.Item className="timeline-item">2014.02 에버랜드 공연팀 입사</Timeline.Item>
+						<Timeline.Item className="timeline-item" color="green">2013.09.05 전역</Timeline.Item>
+						<Timeline.Item className="timeline-item">2014.02 학비·생활비 마련을 위해 에버랜드 공연팀 입사</Timeline.Item>
 						<Timeline.Item className="timeline-item" dot={<Icon type="clock-circle-o" />}>
 							소속된 동물원 공연팀의 오너분이 젊은시절 와일드한 성격이였는데 많이 소프트해졌다고함 가끔씩 중요한 순간에 카리스마가 나옴
 							인문학도 좋아하고 눈치100단, 처세술 만렙, 리더쉽이 강한 책임자라고 느끼며 많은걸 배움
 						</Timeline.Item>
 						<Timeline.Item className="timeline-item">2015.03 한국IT전문학교 웹디자인과 입학</Timeline.Item>
 						<Timeline.Item className="timeline-item" color="green">코딩을 경험한 이후 개발자 취업준비</Timeline.Item>
+						<Timeline.Item className="timeline-item">2017.02 한국IT전문학교 웹디자인과 졸업</Timeline.Item>
 						<Timeline.Item className="timeline-item">2017.02 웹 에이전시 (주)스튜디오블룸 입사</Timeline.Item>
 						<Timeline.Item className="timeline-item" color="green" dot={<Icon type="clock-circle-o" />}>2019.04 (주)스튜디오블룸 퇴사</Timeline.Item>
 					</Timeline>

@@ -8,6 +8,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.User = require('./user')(sequelize, Sequelize);
 db.PortfolioPost = require('./portfolioPost')(sequelize, Sequelize);
 db.Feedback = require('./feedback')(sequelize, Sequelize);
+db.JavascriptPost = require('./javascriptPost')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

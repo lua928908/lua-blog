@@ -112,6 +112,7 @@ function userFeedbackAPI(postData){
 function* userFeedback(action){
 	try{
 		const result = yield call(userFeedbackAPI, action.data);
+		yield delay(1000);
 		yield put({
 			type: USER_FEEDBACK_SUCCESS,
 			data: result.data,
