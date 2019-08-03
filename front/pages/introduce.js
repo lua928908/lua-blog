@@ -9,6 +9,7 @@ import styled from 'styled-components';
 */
 import dynamic from 'next/dynamic'
 const DynamicTechChart = dynamic(() => import('../components/chart/TechChart'));
+const DynamicStatChart = dynamic(() => import('../components/chart/Stat'));
 
 
 // style
@@ -304,6 +305,7 @@ const Introduce = () => {
 				<TechBox className="wowo">
 					<Title>기술 선호도</Title>
 					<DynamicTechChart />
+					<DynamicStatChart />
 				</TechBox>
 
 				<MottoWrap>

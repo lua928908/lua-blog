@@ -1,19 +1,17 @@
 import React, { Component, useState } from "react";
 import Chart from "react-apexcharts";
 
-const TechChart = () => {
+const Stat = () => {
 	const [options, setOptions] = useState({
 		chart: {
-			id: "basic-bar"
+			id: "radar"
 		},
-		xaxis: {
-			categories: ['React', 'Next', 'Vue', 'Angular', 'Node', 'mySql', 'mongDB', 'Antd', 'ApexCharts']
-		}
+		labels: ['성실함', '체력', '근력', '지식', '커뮤니케이션', '내성'],
 	});
 	const [series, setSeries] = useState([
 		{
-			name: "기술 선호도",
-			data: [93, 82, 70, 14, 55, 76, 35, 90, 78]
+			name: 'Stat',
+			data: [81, 66, 74, 81, 83, 53],
 		}
 	]);
 
@@ -22,10 +20,10 @@ const TechChart = () => {
 			<Chart
 				options={options}
 				series={series}
-				type="bar"
+				type="radar"
 			/>
 		</>
 	);
 };
 
-export default TechChart;
+export default Stat;
