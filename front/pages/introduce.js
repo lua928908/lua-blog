@@ -302,9 +302,10 @@ const Introduce = () => {
 					</Timeline>
 				</History>
 				
-				<TechBox className="wowo">
+				<TechBox className="chart-wrap">
 					<Title>기술 선호도</Title>
 					<DynamicTechChart />
+					<Title>스탯</Title>
 					<DynamicStatChart />
 				</TechBox>
 

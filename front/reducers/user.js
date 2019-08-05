@@ -7,7 +7,6 @@ export const initialState = {
 	userInfo: '', // 로그인 유저 정보
 	loginErrorReason: '', // 로그인 에러메세지
 	registerDone: false, // 회원가입 성공 여부
-	isUserAdmin: false, // 로그인된 유저의 관리자 여부
 	checkLoginErrorReason: '', // 로그인된 유저 정보 받아오기 에러
 };
 
@@ -48,7 +47,6 @@ const reducer = (state = initialState, action) => {
 			case LOG_IN_SUCCESS: {
 				draft.isLoggingIn = false;
 				draft.userInfo = action.data;
-				draft.isUserAdmin = action.data.admin ? true : false;
 				message.info('로그인 되었습니다.');
 				break;
 			}
@@ -73,7 +71,6 @@ const reducer = (state = initialState, action) => {
 			}
 			case LOGOUT_SUCCESS: {
 				draft.userInfo = '';
-				draft.isUserAdmin = false;
 				message.info('로그아웃 되었습니다.');
 				break;
 			}

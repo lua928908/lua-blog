@@ -18,7 +18,7 @@ const IconText = ({ type, text }) => (
 );
 
 const PostList = ({ listData, category }) => {
-	const isUserAdmin = useSelector(state => state.user.isUserAdmin);
+	const isUserAdmin = useSelector(state => state.user.userInfo.admin);
 	const [editModalState, setEditModalState] = useState(false);
 
 	const showEditModal = () => {

@@ -29,7 +29,6 @@ const EditForm = ({ category }) => {
 	const onEditorStateChange = useCallback((editorState) => {
 		setEditorState(editorState);
 		let editorSourceHTML = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-		console.log(editorSourceHTML);
 		resultContent = editorSourceHTML;
 	}, [editorState]);
 

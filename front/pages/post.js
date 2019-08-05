@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Helmet from 'react-helmet';
+import parser from 'html-react-parser';
 
 import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 
@@ -8,7 +9,7 @@ const Post = ({ id }) => {
 	const category = useSelector(state => state.post.loadPostCategory);
 	const singlePost = useSelector(state => state.post.singlePost);
 	const dispatch = useDispatch();
-
+	
 	// method
 
 	useEffect(() => {
@@ -32,7 +33,12 @@ const Post = ({ id }) => {
 			<div>{id}번 글</div>
 
 			<div>제목 : {singlePost.title}</div>
-			<div>내용 : {singlePost.content}</div>
+			<div>
+				내용 :
+				{
+					parser(`${singlePost.content}`)
+				}
+			</div>
 		</>
 	);
 };

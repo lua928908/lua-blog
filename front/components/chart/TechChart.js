@@ -13,7 +13,7 @@ const TechChart = () => {
 	const [series, setSeries] = useState([
 		{
 			name: "기술 선호도",
-			data: [93, 82, 70, 14, 55, 76, 35, 90, 78]
+			data: [91, 82, 70, 14, 55, 76, 35, 82, 73]
 		}
 	]);
 
