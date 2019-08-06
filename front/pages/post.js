@@ -9,7 +9,7 @@ const Post = ({ id }) => {
 	const category = useSelector(state => state.post.loadPostCategory);
 	const singlePost = useSelector(state => state.post.singlePost);
 	const dispatch = useDispatch();
-	
+
 	// method
 
 	useEffect(() => {

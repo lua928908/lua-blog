@@ -9,6 +9,7 @@ db.User = require('./user')(sequelize, Sequelize);
 db.PortfolioPost = require('./portfolioPost')(sequelize, Sequelize);
 db.Feedback = require('./feedback')(sequelize, Sequelize);
 db.JavascriptPost = require('./javascriptPost')(sequelize, Sequelize);
+db.Inspiration = require('./inspirationPost')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

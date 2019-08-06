@@ -13,6 +13,7 @@ const passportConfig = require('./passport/index');
 const userRouter = require('./routes/user');
 const portfolioRouter = require('./routes/portfolio');
 const javascriptRouter = require('./routes/javascript');
+const inspirationtRouter = require('./routes/inspiration');
 
 dotenv.config();
 db.sequelize.sync();
@@ -54,6 +55,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter)
 app.use('/api/portfolio', portfolioRouter)
 app.use('/api/javascript', javascriptRouter)
+app.use('/api/inspiration', inspirationtRouter)
 app.get('/', (req, res) => {
 	res.send('API서버 동작중');
 });

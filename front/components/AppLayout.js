@@ -167,7 +167,6 @@ const AppLayout = ({children}) => {
 								</SubMenu>
 								<SubMenu key="sub3" title={ <span><Icon type="notification" />Inspiration</span> }>
 									<Menu.Item key="inspiration"><Link href="/inspiration"><a>Inspiration</a></Link></Menu.Item>
-									<Menu.Item key="book"><Link href="/book"><a>Book</a></Link></Menu.Item>
 								</SubMenu>
 							</Menu>
 
