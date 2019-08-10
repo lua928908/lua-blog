@@ -35,8 +35,7 @@ app.prepare().then(() => {
 
 
 	// 와일드카드 처리는 별도로 지정해야함
-	server.get('/portfolio/:id', (req, res) => {
-		console.log('포트폴리오:id');
+	server.get('/post/:id', (req, res) => {
 		return app.render(req, res, '/post', { id: req.params.id });
 	});
 

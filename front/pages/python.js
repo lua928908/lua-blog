@@ -3,15 +3,15 @@ import PostList from '../components/PostList';
 import { useSelector, useDispatch } from 'react-redux';
 import { LOAD_POST_REQUEST } from '../reducers/post';
 
-const Portfolio = () => {
+const Python = () => {
 	const dispatch = useDispatch();
-	const category = 'portfolio';
+	const category = 'python';
 
 	const listData = useSelector(state => state.post.showPosts);
 
 	return (
 		<>
-			<h1>포트폴리오</h1>
+			<h1>{category}</h1>
 			<PostList listData={listData} category={category}>
 
 			</PostList>
@@ -19,11 +19,12 @@ const Portfolio = () => {
 	);
 };
 
-Portfolio.getInitialProps = (context) => {
+Python.getInitialProps = (context) => {
+
 	context.store.dispatch({
 		type: LOAD_POST_REQUEST,
-		category: 'portfolio',
+		category: 'Python',
 	});
 };
 
-export default Portfolio;
+export default Python;

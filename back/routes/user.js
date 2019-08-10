@@ -22,7 +22,7 @@ router.post('/login', (req, res, next) => {
 			const fullUser = await db.User.findOne({
 				where: { id: user.id },
 				include: [{
-					model: db.PortfolioPost,
+					model: db.Post,
 					attributes: ['id'],
 				}],
 				attributes: ['id', 'email', 'nickname', 'phone', 'website', 'admin'], // 속성 필터링

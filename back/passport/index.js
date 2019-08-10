@@ -12,7 +12,7 @@ module.exports = () => {
 			const user = await db.User.findOne({
 				where: { id },
 				include: [{
-					model: db.PortfolioPost,
+					model: db.Post,
 					attributes: ['id'],
 				}]
 			});

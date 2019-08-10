@@ -8,7 +8,7 @@ import { Input } from 'antd';
 import { ADD_POST_REQUEST } from '../reducers/post';
 
 let resultContent = null;
-const EditForm = ({ category }) => {
+const EditForm = ({ category, setEditModalState }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [editorState, setEditorState] = useState('');
@@ -44,11 +44,13 @@ const EditForm = ({ category }) => {
 				title,
 				description,
 				content: resultContent,
+				category,
 			},
 		});
 		setTitle('');
 		setDescription('');
 		setEditorState('');
+		setEditModalState(false);
 	}, [title, description, editorState]);
 	
 

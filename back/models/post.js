@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	const Inspiration = sequelize.define('inspiration', {
+	const Post = sequelize.define('post', {
 		auth: {
 			type: DataTypes.STRING(20),
 			allowNull: false,
@@ -25,12 +25,16 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 		},
 		content: {
-			type: DataTypes.JSON,
+			type: DataTypes.TEXT(),
 			allowNull: false,
 		},
 		imagePath: {
 			type: DataTypes.STRING(200),
 			allowNull: true,
+		},
+		category: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
 		},
 		star: {
 			type: DataTypes.INTEGER,
@@ -44,9 +48,9 @@ module.exports = (sequelize, DataTypes) => {
 		paranoid: true,
 	})
 
-	Inspiration.associate = (db) => {
-		db.Inspiration.belongsTo(db.User);
+	Post.associate = (db) => {
+		db.Post.belongsTo(db.User);
 	};
 
-	return Inspiration;
+	return Post;
 };

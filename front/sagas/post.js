@@ -4,13 +4,12 @@ import {
 	LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
 	ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
 	LOAD_SINGLE_POST_REQUEST, LOAD_SINGLE_POST_SUCCESS, LOAD_SINGLE_POST_FAILURE,
-	USER_FEEDBACK_REQUEST, USER_FEEDBACK_SUCCESS, USER_FEEDBACK_FAILURE,
 } from '../reducers/post';
 
 
 // 게시물 작성
 function addPostAPI(postData){
-	return axios.post(`/${postData.category}`, postData.data, {
+	return axios.post('/post', postData.data, {
 		withCredentials: true,
 	});
 }
@@ -42,7 +41,10 @@ function* watchAddPost(){
 
 // 게시물 가져오기
 function loadPostAPI(postCategory){
-	return axios.get(`${postCategory}`);
+	console.log('postCategory = ', postCategory);
+	return axios.post('/post/find', {
+		category: postCategory,
+	});
 };
 function* loadPost(action){
 	try{
@@ -65,7 +67,8 @@ function* watchLoadPost(){
 
 // 한개의 게시물 가져오기
 function loadSinglePostAPI(postData){
-	return axios.get(`${postData.category}/${postData.id}`);
+	return axios.get(`/post/${postData.id}`, {
+	});
 };
 function* loadSinglePost(action){
 	try{

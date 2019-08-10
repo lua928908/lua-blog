@@ -6,10 +6,7 @@ const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 db.User = require('./user')(sequelize, Sequelize);
-db.PortfolioPost = require('./portfolioPost')(sequelize, Sequelize);
-db.Feedback = require('./feedback')(sequelize, Sequelize);
-db.JavascriptPost = require('./javascriptPost')(sequelize, Sequelize);
-db.Inspiration = require('./inspirationPost')(sequelize, Sequelize);
+db.Post = require('./post')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
