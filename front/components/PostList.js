@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { List, Avatar, Icon, Button, Modal, Tooltip } from 'antd';
@@ -34,19 +34,20 @@ const IconText = ({ type, text }) => (
 );
 
 const PostList = ({ listData, category }) => {
+	const userInfo = useSelector(state => state.user.userInfo);
 	const isUserAdmin = useSelector(state => state.user.userInfo.admin);
 	const [editModalState, setEditModalState] = useState(false);
 
-	const showEditModal = () => {
+	const showEditModal = useCallback(() => {
 		setEditModalState(true);
-	};
-	const handleOk = e => {
+	});
+	const handleOk = useCallback((e) => {
 		setEditModalState(false);
-	};
+	});
 	
-	const handleCancel = e => {
+	const handleCancel = useCallback((e) => {
 		setEditModalState(false);
-	};
+	});
 
 	return (
 		<>
@@ -68,7 +69,7 @@ const PostList = ({ listData, category }) => {
 						actions={[
 							<IconText type="edit" text={<Moment format="YYYY.MM.DD HH:MM" date={item.createdAt} />} />,
 							<IconText type="message" text={'준비중'} />,
-							<IconText type="star-o" text={item.star} />,
+							<IconText type="star-o" text={item.Likers.length} />,
 						]}
 						extra={
 							item && item.imagePath ?

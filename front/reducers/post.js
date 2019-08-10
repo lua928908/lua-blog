@@ -20,6 +20,14 @@ export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
 export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
 export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 
+export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
+
+export const UN_LIKE_POST_REQUEST = 'UN_LIKE_POST_REQUEST';
+export const UN_LIKE_POST_SUCCESS = 'UN_LIKE_POST_SUCCESS';
+export const UN_LIKE_POST_FAILURE = 'UN_LIKE_POST_FAILURE';
+
 
 export default (state = initialState, action) => {
 	return produce(state, (draft) => {
@@ -52,6 +60,26 @@ export default (state = initialState, action) => {
 				break;
 			}
 			case LOAD_SINGLE_POST_FAILURE: {
+				break;
+			}
+			case LIKE_POST_REQUEST: {
+				break;
+			}
+			case LIKE_POST_SUCCESS: {
+				draft.singlePost.Likers.unshift({ id: action.data.userId });
+				break;
+			}
+			case LIKE_POST_FAILURE: {
+				break;
+			}
+			case UN_LIKE_POST_REQUEST: {
+				break;
+			}
+			case UN_LIKE_POST_SUCCESS: {
+				draft.singlePost.Likers.splice(0, 1);
+				break;
+			}
+			case UN_LIKE_POST_FAILURE: {
 				break;
 			}
 			default: {

@@ -4,6 +4,8 @@ import {
 	LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
 	ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
 	LOAD_SINGLE_POST_REQUEST, LOAD_SINGLE_POST_SUCCESS, LOAD_SINGLE_POST_FAILURE,
+	LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE,
+	UN_LIKE_POST_REQUEST, UN_LIKE_POST_SUCCESS, UN_LIKE_POST_FAILURE,
 } from '../reducers/post';
 
 
@@ -41,7 +43,6 @@ function* watchAddPost(){
 
 // 게시물 가져오기
 function loadPostAPI(postCategory){
-	console.log('postCategory = ', postCategory);
 	return axios.post('/post/find', {
 		category: postCategory,
 	});
@@ -92,10 +93,64 @@ function* watchLoadSinglePost(){
 	yield takeLatest(LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 };
 
+// 게시글 좋아요
+function likePostAPI(postId){
+	return axios.post(`/post/${postId}/like`, {}, {
+		withCredentials: true,
+	});
+};
+function* likePost(action){
+	try{
+		const result = yield call(likePostAPI, action.data);
+		yield put({
+			type: LIKE_POST_SUCCESS,
+			data: {
+				userId: result.data.userId
+			}
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: LIKE_POST_FAILURE,
+			error: e,
+		});
+	}
+};
+function* watchLikePost(){
+	yield takeLatest(LIKE_POST_REQUEST, likePost);
+};
+
+// 게시글 좋아요 취소
+function unLikePostAPI(postId){
+	return axios.delete(`/post/${postId}/like`, {
+		withCredentials: true,
+	});
+};
+function* unLikePost(action){
+	try{
+		const result = yield call(unLikePostAPI, action.data);
+		yield put({
+			type: UN_LIKE_POST_SUCCESS,
+			userId: result.data.userId,
+		});
+	}catch(e){
+		console.error(e);
+		yield put({
+			type: UN_LIKE_POST_FAILURE,
+			error: e,
+		});
+	}
+};
+function* watchUnLikePost(){
+	yield takeLatest(UN_LIKE_POST_REQUEST, unLikePost);
+};
+
 export default function* postSaga() {
   yield all([
 	fork(watchAddPost),
     fork(watchLoadPost),
     fork(watchLoadSinglePost),
+    fork(watchLikePost),
+    fork(watchUnLikePost),
   ]);
 }
