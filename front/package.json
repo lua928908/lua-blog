@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.20.0",
-    "apexcharts": "^3.8.3",
+    "apexcharts": "^3.24.0",
     "axios": "^0.21.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
